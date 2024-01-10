@@ -29,33 +29,22 @@ def calculate_distance(point1, point2):
 max_distance = 0
 max_distance_house = None
 max_distance_battery = None
+max_distance_per_house = 0
+total_max_distance = 0
 
-if __name__ == "__main__":
-    # variables needed to calculate total distance of all houses together.
-    max_distance_all = 0
-    max_distance_all_list = []
-    max_distance_currenthouse = 0
+for house in district_1_houses:
+    for battery in district_1_batteries:
+        distance = calculate_distance(house, battery)
+        if distance > max_distance:
+            max_distance = distance
+            max_distance_house = house
+            max_distance_battery = battery
 
-    max_distance = 0
-    max_distance_house = None
-    max_distance_battery = None
-    for house in district_1_houses:
-        for battery in district_1_batteries:
-            distance = calculate_distance(house, battery)
-            if distance > max_distance:
-                max_distance = distance
-                max_distance_all_list.append(max_distance)
-                max_distance_house = house
-                max_distance_battery = battery
+        if distance > max_distance_per_house:
+            max_distance_per_house = distance
 
-        for i in range(len(max_distance_all_list) - 1):
-            if max_distance_all_list[i] < max_distance_all_list[i+1]:
-                max_distance_currenthouse = max_distance_all_list[i+1]
-        max_distance_all = max_distance_all + max_distance_currenthouse
-        max_distance_all_list = []
-        
+    total_max_distance += max_distance_per_house
+    max_distance_per_house = 0
 
-    print(f"The maximum distance in district 1 is {max_distance} between {max_distance_house} and {max_distance_battery}")
-    print(f"The total distance of each house to his furthest battery is equal to {max_distance_all}")
-
-    
+print(f"The maximum distance in district 1 is {max_distance} between {max_distance_house} and {max_distance_battery}")
+print(total_max_distance)
