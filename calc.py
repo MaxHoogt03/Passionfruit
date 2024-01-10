@@ -31,9 +31,11 @@ max_distance_house = None
 max_distance_battery = None
 
 if __name__ == "__main__":
+    # variables needed to calculate total distance of all houses together.
     max_distance_all = 0
     max_distance_all_list = []
     max_distance_currenthouse = 0
+
     max_distance = 0
     max_distance_house = None
     max_distance_battery = None
