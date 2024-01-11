@@ -34,3 +34,10 @@ class House:
         side-effects: adds a list item to self.cables
         """
         self.cables.append(coordinates)
+
+    def get_cables(self):
+        """
+        Returns coordinates of cables.
+        
+        """
+        return self.cables

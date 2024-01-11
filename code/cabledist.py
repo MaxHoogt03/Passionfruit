@@ -18,6 +18,7 @@ min_distance_battery = None
 min_distance_per_house = None
 total_min_distance = 0
 test = 0
+list_of_houses = []
 
 for house in district_1_houses:
     for battery in district_1_batteries:
@@ -51,19 +52,19 @@ for house in district_1_houses:
     
     else:
         for i in range(dist_y + 1):
-            min_distance_house.add_cable(f"{x_house-dist_x}, {y_house - i}")
-
-
-    print(min_distance_house.cables)
-    print()
-              
+            min_distance_house.add_cable(f"{x_house-dist_x}, {y_house - i}")    
 
 
     total_min_distance += min_distance_per_house
     min_distance = None
     min_distance_per_house = None
+    list_of_houses.append(min_distance_house)
 
     
 
 print(f"The minimum distance in district 1 is {min_distance} between {min_distance_house} and {min_distance_battery}")
 print(total_min_distance)
+
+for house in list_of_houses:
+    print(house.get_cables())
+    print()
