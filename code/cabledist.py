@@ -1,54 +1,69 @@
+"""
+Calculate closest battery for every single house and adding all distances to each other. It also adds the cables coordinates to the house object.
+"""
 import csv
 
-from models import Battery, House
+from classes.house import House
+from classes.battery import Battery
 
-district_1_batteries = []
-district_1_houses = []
-
-with open('../data/district_1/district-1_batteries.csv', 'r') as file:
-    csv_reader = csv.DictReader(file)
-
-    for row in csv_reader:
-        x, y = row['positie'].split(',')
-        capacity = row['capaciteit']
-        district_1_batteries.append(Battery(x, y, capacity))
-
-with open('../data/district_1/district-1_houses.csv', 'r') as file:
-    csv_reader = csv.DictReader(file)
-
-    for row in csv_reader:
-        x = row['x']
-        y = row['y']
-        maxoutput = row['maxoutput']
-        district_1_houses.append(House(x, y, maxoutput))
-
+district_1_batteries = Battery.read_battery('../data/district_1/district-1_batteries.csv')
+district_1_houses = House.read_house('../data/district_1/district-1_houses.csv')
 
 def calculate_distance(point1, point2):
     return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
-min_distance = 0
+min_distance = None
 min_distance_house = None
 min_distance_battery = None
+min_distance_per_house = None
+total_min_distance = 0
+test = 0
 
-if __name__ == "__main__":
-    max_distance = 0
-    max_distance_house = None
-    max_distance_battery = None
-    max_distance_per_house = 0
-    total_max_distance = 0
+for house in district_1_houses:
+    for battery in district_1_batteries:
+        distance = calculate_distance(house, battery)
+        if min_distance is None or distance < min_distance:
+            min_distance = distance
+            min_distance_house = house
+            min_distance_battery = battery
 
-    for house in district_1_houses:
-        for battery in district_1_batteries:
-            distance = calculate_distance(house, battery)
-            if distance > max_distance:
-                max_distance = distance
-                max_distance_house = house
-                max_distance_battery = battery
+        if min_distance_per_house is None or distance < min_distance_per_house:
+            min_distance_per_house = distance
 
-            if distance > max_distance_per_house:
-                max_distance_per_house = distance
+    x_house = min_distance_house.x
+    y_house = min_distance_house.y
+    x_battery = min_distance_battery.x
+    y_battery = min_distance_battery.y
+    dist_x = x_house - x_battery
+    dist_y = y_house - y_battery
 
-        total_max_distance += max_distance_per_house
+    if dist_x < 0:
+        for i in range(abs(dist_x)):
+            min_distance_house.add_cable(f"{x_house + i}, {y_house}")
+    
+    elif dist_x > 0:
+        for i in range(dist_x):
+            min_distance_house.add_cable(f"{x_house-i}, {y_house}")
 
-    print(f"The maximum distance in district 1 is {max_distance} between {max_distance_house} and {max_distance_battery}")
-    print(total_max_distance)
+    if dist_y < 0:
+        for i in range(abs(dist_y) + 1):
+            min_distance_house.add_cable(f"{x_house - dist_x}, {y_house + i}")
+    
+    else:
+        for i in range(dist_y + 1):
+            min_distance_house.add_cable(f"{x_house-dist_x}, {y_house - i}")
+
+
+    print(min_distance_house.cables)
+    print()
+              
+
+
+    total_min_distance += min_distance_per_house
+    min_distance = None
+    min_distance_per_house = None
+
+    
+
+print(f"The minimum distance in district 1 is {min_distance} between {min_distance_house} and {min_distance_battery}")
+print(total_min_distance)

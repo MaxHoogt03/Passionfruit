@@ -5,6 +5,7 @@ class House:
         self.x = int(x)
         self.y = int(y)
         self.maxoutput = maxoutput
+        self.cables = []
 
     def read_house(filename):
         house_list = []
@@ -27,7 +28,7 @@ class House:
         """
         Add cable, by entering the end point of the cable.
         
-        pre: list[int,int]
+        pre: string
         post: none
 
         side-effects: adds a list item to self.cables
