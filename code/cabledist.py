@@ -1,6 +1,6 @@
 import csv
 
-from Passionfruit.Code.models import Battery, House
+from models import Battery, House
 
 district_1_batteries = []
 district_1_houses = []
@@ -26,9 +26,9 @@ with open('../data/district_1/district-1_houses.csv', 'r') as file:
 def calculate_distance(point1, point2):
     return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
-max_distance = 0
-max_distance_house = None
-max_distance_battery = None
+min_distance = 0
+min_distance_house = None
+min_distance_battery = None
 
 if __name__ == "__main__":
     max_distance = 0
@@ -52,5 +52,3 @@ if __name__ == "__main__":
 
     print(f"The maximum distance in district 1 is {max_distance} between {max_distance_house} and {max_distance_battery}")
     print(total_max_distance)
-
-    
