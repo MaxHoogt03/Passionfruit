@@ -11,10 +11,10 @@ def calculate_distance(point1, point2):
 max_distance = 0
 max_distance_house = None
 max_distance_battery = None
-max_distance_per_house = 0
 total_max_distance = 0
 
 for house in district_1_houses:
+    max_distance_per_house = 0
     for battery in district_1_batteries:
         distance = calculate_distance(house, battery)
         if distance > max_distance:
@@ -26,7 +26,6 @@ for house in district_1_houses:
             max_distance_per_house = distance
 
     total_max_distance += max_distance_per_house
-    max_distance_per_house = 0
 
 print(f"The maximum distance in district 1 is {max_distance} between {max_distance_house} and {max_distance_battery}")
 print(total_max_distance)
