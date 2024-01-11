@@ -1,9 +1,9 @@
 import csv
 
-from models import Battery, House, read_battery, read_house
+from models import Battery, House
 
-district_1_batteries = read_battery('district-1_batteries.csv')
-district_1_houses = read_house('district-1_houses.csv')
+district_1_batteries = Battery.read_battery('district-1_batteries.csv')
+district_1_houses = House.read_house('district-1_houses.csv')
 
 def calculate_distance(point1, point2):
     return abs(point1.x - point2.x) + abs(point1.y - point2.y)
