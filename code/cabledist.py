@@ -15,57 +15,47 @@ district_1_houses = House.read_house('../data/district_1/district-1_houses.csv')
 def calculate_distance(point1, point2):
     return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
-smallest_distance = None
-min_distance_house = None
-min_distance_per_battery = None
-min_distance = None
 total_min_distance = 0
-test = 0
-list_of_houses = []
-list_of_batteries = []
 
 for house in district_1_houses:
+    smallest_distance = None
+    smallest_distance_house = None
+    smallest_distance_battery = None
+
     for battery in district_1_batteries:
         distance = calculate_distance(house, battery)
+
         if smallest_distance is None or distance < smallest_distance:
             smallest_distance = distance
             smallest_distance_house = house
             smallest_distance_battery = battery
 
-        if min_distance is None or distance < min_distance:
-            min_distance = distance
-            min_distance_house = house
-            min_distance_battery = battery
-
-    x_house = min_distance_house.x
-    y_house = min_distance_house.y
-    x_battery = min_distance_battery.x
-    y_battery = min_distance_battery.y
+    x_house = smallest_distance_house.x
+    y_house = smallest_distance_house.y
+    x_battery = smallest_distance_battery.x
+    y_battery = smallest_distance_battery.y
     dist_x = x_house - x_battery
     dist_y = y_house - y_battery
 
     if dist_x < 0:
         for i in range(abs(dist_x)):
-            min_distance_house.add_cable(f"{x_house + i}, {y_house}")
+            smallest_distance_house.add_cable(f"{x_house + i}, {y_house}")
     
     elif dist_x > 0:
         for i in range(dist_x):
-            min_distance_house.add_cable(f"{x_house-i}, {y_house}")
+            smallest_distance_house.add_cable(f"{x_house-i}, {y_house}")
 
     if dist_y < 0:
         for i in range(abs(dist_y) + 1):
-            min_distance_house.add_cable(f"{x_house - dist_x}, {y_house + i}")
+            smallest_distance_house.add_cable(f"{x_house - dist_x}, {y_house + i}")
     
     elif dist_y > 0:
         for i in range(dist_y + 1):
-            min_distance_house.add_cable(f"{x_house-dist_x}, {y_house - i}")    
+            smallest_distance_house.add_cable(f"{x_house-dist_x}, {y_house - i}")
 
-
-    total_min_distance += min_distance
-    min_distance = None
-    list_of_houses.append(min_distance_house)
-    min_distance_battery.add_house(min_distance_house)
-    list_of_batteries.append(min_distance_battery)
+    total_min_distance += smallest_distance
+    smallest_distance_battery.add_house(smallest_distance_house)
+    
 
 
 print(f"The minimum distance in district 1 is {smallest_distance} between {smallest_distance_house} and {smallest_distance_battery}")
@@ -73,14 +63,13 @@ print(total_min_distance)
 print(smallest_distance_house.get_cables())
 
 
-for house in list_of_houses:
+for house in district_1_houses:
     district_1.add_house(house)
 
-for battery in list_of_batteries:
+for battery in district_1_batteries:
     district_1.add_battery(battery)
 
-print(district_1.output())
-
+district_1.output()
 
 def plot_cables(houses):
     for house in houses:
@@ -100,7 +89,7 @@ def plot_cables(houses):
         plt.plot(x_coords[-1], y_coords[-1], marker='s', color='red', markersize=10)
         
 # Plotting for all houses
-plot_cables(list_of_houses)
+plot_cables(district_1_houses)
 
 plt.xlabel('X Coordinate')
 plt.ylabel('Y Coordinate')
