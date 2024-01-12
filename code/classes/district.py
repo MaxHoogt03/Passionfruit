@@ -49,5 +49,7 @@ class District:
 
             data.append(battery_info)
 
+        with open('output.json', 'w') as json_file:
+            json.dump(data, json_file, indent=2)  # 'indent' for pretty formatting
 
         return json.dumps(data, indent = 2)
