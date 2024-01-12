@@ -5,6 +5,7 @@ class Battery:
         self.x = int(x)
         self.y = int(y)
         self.capacity = capacity
+        self.houses = []
 
     def read_battery(filename):
         battery_list = []
@@ -18,6 +19,18 @@ class Battery:
                 battery_list.append(Battery(x, y, capacity))
 
         return battery_list
+    
+    def get_location(self):
+        return f"{self.x},{self.y}"
+    
+    def get_capacity(self):
+        return self.capacity
+    
+    def add_house(self, house):
+        self.houses.append(house)
+    
+    def get_houses(self):
+        return self.houses
     
     def __str__(self) -> str:
         return f"Battery at coordinate {self.x}, {self.y} with capacity {self.capacity}"

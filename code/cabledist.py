@@ -5,6 +5,9 @@ import csv
 
 from classes.house import House
 from classes.battery import Battery
+from classes.district import District
+
+district_1 = District(1)
 
 district_1_batteries = Battery.read_battery('../data/district_1/district-1_batteries.csv')
 district_1_houses = House.read_house('../data/district_1/district-1_houses.csv')
@@ -19,6 +22,7 @@ min_distance_per_house = None
 total_min_distance = 0
 test = 0
 list_of_houses = []
+list_of_batteries = []
 
 for house in district_1_houses:
     for battery in district_1_batteries:
@@ -59,12 +63,19 @@ for house in district_1_houses:
     min_distance = None
     min_distance_per_house = None
     list_of_houses.append(min_distance_house)
+    min_distance_battery.add_house(min_distance_house)
+    list_of_batteries.append(min_distance_battery)
 
     
 
 print(f"The minimum distance in district 1 is {min_distance} between {min_distance_house} and {min_distance_battery}")
 print(total_min_distance)
 
+
 for house in list_of_houses:
-    print(house.get_cables())
-    print()
+    district_1.add_house(house)
+
+for battery in list_of_batteries:
+    district_1.add_battery(battery)
+
+print(district_1.output())

@@ -24,6 +24,12 @@ class House:
     def __str__(self) -> str:
         return f"House at coordinate {self.x}, {self.y} with maxoutput {self.maxoutput}"
     
+    def get_location(self):
+        return f"{self.x},{self.y}"
+    
+    def get_output(self):
+        return self.maxoutput
+    
     def add_cable(self, coordinates):
         """
         Add cable, by entering the end point of the cable.
@@ -41,3 +47,10 @@ class House:
         
         """
         return self.cables
+    
+    def count_cables(self):
+        """"
+        Counts the amount of cables.
+        """
+
+        return len(self.cables) - 1
