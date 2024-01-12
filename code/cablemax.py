@@ -1,5 +1,5 @@
 """
-Calculate furthest battary for every single house and adding all distances to each other.
+Calculate furthest battery for every single house and adding all distances to each other.
 """
 import csv
 
@@ -12,10 +12,10 @@ district_1_houses = House.read_house('../data/district_1/district-1_houses.csv')
 def calculate_distance(point1, point2):
     return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
+largest_distance = 0
+largest_distance_house = None
+largest_distance_battery = None
 max_distance = 0
-max_distance_house = None
-max_distance_battery = None
-max_distance_per_house = 0
 total_max_distance = 0
 
 for house in district_1_houses:
@@ -26,13 +26,15 @@ for house in district_1_houses:
             max_distance_house = house
             max_distance_battery = battery
 
-        if distance > max_distance_per_house:
-            max_distance_per_house = distance
+        if distance > largest_distance:
+            largest_distance = distance
+            largest_distance_house = house
+            largest_distance_battery = battery
 
-    total_max_distance += max_distance_per_house
-    max_distance_per_house = 0
+    total_max_distance += max_distance
+    max_distance = 0
 
-print(f"The maximum distance in district 1 is {max_distance} between {max_distance_house} and {max_distance_battery}")
+print(f"The maximum distance in district 1 is {largest_distance} between {largest_distance_house} and {largest_distance_battery}")
 print(total_max_distance)
 
     
