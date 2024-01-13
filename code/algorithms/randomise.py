@@ -12,16 +12,17 @@ def randomize_houses(district):
 def random_solution(district):
     retry = True
     while retry:
-        randomize_houses(district)
+        district_copy = copy.deepcopy(district)
+        randomize_houses(district_copy)
 
         total_min_distance = 0
         retry = False  # Reset the retry flag at the beginning of each attempt
-        for house in district.houses:
+        for house in district_copy.houses:
             smallest_distance = None
             closest_battery = None
 
             # loops over all batteries and checks which battery is closest to current house, with its distance.
-            for battery in district.batteries:
+            for battery in district_copy.batteries:
                 distance = District.calculate_distance(house, battery)
                 
                 if (smallest_distance is None or distance < smallest_distance) and battery.get_capacity() >= house.get_output():
@@ -66,11 +67,9 @@ def random_solution(district):
                 # If no suitable battery is found for a house, set the retry flag and break the loop
                 print("Retrying")
                 retry = True
-                for battery in district.batteries:
+                for battery in district_copy.batteries:
                     battery.capacity = 1507
                 break
 
-    district.output()
-    district.plot_cables()
-
-
+    district_copy.output()
+    district_copy.plot_cables()
