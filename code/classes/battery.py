@@ -4,7 +4,7 @@ class Battery:
     def __init__(self, x, y, capacity):
         self.x = int(x)
         self.y = int(y)
-        self.capacity = capacity
+        self.capacity = float(capacity)
         self.houses = []    
     
     def get_location(self):
@@ -27,6 +27,15 @@ class Battery:
 
         """
         return self.capacity
+    
+    def retract_capacity(self, output):
+        """
+        retracts capacity from battery by the output from a certain house.
+
+        pre: output
+        post: none
+        """
+        self.capacity -= output
     
 
     def add_house(self, house):

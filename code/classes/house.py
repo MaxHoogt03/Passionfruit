@@ -28,7 +28,7 @@ class House:
 
         """
 
-        return self.maxoutput
+        return float(self.maxoutput)
     
 
     def add_cable(self, coordinates):

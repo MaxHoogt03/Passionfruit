@@ -3,25 +3,12 @@ Calculate closest battery for every single house and adding all distances to eac
 and prints the cables of the house with the smallest distance to a battery.
 """
 import csv
-import matplotlib.pyplot as plt
 from classes.house import House
 from classes.battery import Battery
 from classes.district import District
 
 # Initializing our objects.
 district_1 = District(1, f'../data/district_1/district-1_')
-
-
-def calculate_distance(point1, point2):
-    """
-    Calculates the distance between Two points on an x,y plane By adding the x and y difference.
-    
-    pre: int
-    post: int
-
-    """
-    return abs(point1.x - point2.x) + abs(point1.y - point2.y)
-
 
 # Variable to keep track of total distance of all seperate house-battery combinations.
 total_min_distance = 0
@@ -32,7 +19,7 @@ for house in district_1.houses:
 
     # loops over all batteries and checks which battery is closest to current house, with its distance.
     for battery in district_1.batteries:
-        distance = calculate_distance(house, battery)
+        distance = District.calculate_distance(house, battery)
 
         if smallest_distance is None or distance < smallest_distance:
             smallest_distance = distance
@@ -93,42 +80,8 @@ print(total_min_distance)
 
 # Prints the cable Coordinates.
 print(smallest_distance_house.get_cables())
-
-
-def plot_cables(houses):
-    """
-    Plots the cables, houses and batteries on a grid and stores them to plot.png.
-
-    pre: house object
-    post: None
-    """
-    for house in houses:
-        
-        # Need to store the coordinates in lists, since they are stored as strings.
-        x_coords = []
-        y_coords = []
-
-        # Converts coordinate strings to int and adds them to their list.
-        for coord in house.get_cables():
-            x, y = coord.split(',')
-            x_coords.append(int(x))
-            y_coords.append(int(y))
-
-        # Plot the Lines
-        plt.plot(x_coords, y_coords, color='blue')
-
-        # Plots the houses (The fist cable can be used for location of the house since the cable starts at the house.)
-        plt.plot(x_coords[0], y_coords[0], marker='^', color='green', markersize=10)
-
-        # Plots the batteries (Same logic as above.)
-        plt.plot(x_coords[-1], y_coords[-1], marker='s', color='red', markersize=10)
         
 # Plotting for all houses
-plot_cables(district_1.houses)
+district_1.plot_cables()
 
-# Adjusting format of the plot.
-plt.xlabel('X Coordinate')
-plt.ylabel('Y Coordinate')
-plt.title('Cable Paths for All Houses')
-plt.grid(True)
-plt.savefig('plot.png')
+

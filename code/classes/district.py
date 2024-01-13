@@ -1,5 +1,7 @@
 import json
 import csv
+import matplotlib.pyplot as plt
+
 
 from .house import House
 from .battery import Battery
@@ -56,6 +58,16 @@ class District:
                 battery_list.append(Battery(x, y, capacity))
 
         return battery_list
+    
+    def calculate_distance(point1, point2):
+        """
+        Calculates the distance between Two points on an x,y plane By adding the x and y difference.
+        
+        pre: int
+        post: int
+
+        """
+        return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
 
     def calculate_own_costs(self):
@@ -100,6 +112,41 @@ class District:
         """
 
         return self.batteries
+    
+    
+    def plot_cables(self):
+        """
+        Plots the cables, houses and batteries on a grid and stores them to plot.png.
+
+        pre: None
+        post: None
+        """
+        for house in self.houses:
+            # Need to store the coordinates in lists, since they are stored as strings.
+            x_coords = []
+            y_coords = []
+
+            # Converts coordinate strings to int and adds them to their list.
+            for coord in house.get_cables():
+                x, y = coord.split(',')
+                x_coords.append(int(x))
+                y_coords.append(int(y))
+
+            # Plot the Lines
+            plt.plot(x_coords, y_coords, color='blue')
+
+            # Plots the houses (The fist cable can be used for location of the house since the cable starts at the house.)
+            plt.plot(x_coords[0], y_coords[0], marker='^', color='green', markersize=10)
+
+            # Plots the batteries (Same logic as above.)
+            plt.plot(x_coords[-1], y_coords[-1], marker='s', color='red', markersize=10)
+
+        # Adjusting format of the plot.
+        plt.xlabel('X Coordinate')
+        plt.ylabel('Y Coordinate')
+        plt.title('Cable Paths for All Houses')
+        plt.grid(True)
+        plt.savefig('plot.png')
 
 
     def output(self):
