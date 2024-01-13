@@ -72,4 +72,5 @@ def random_solution(district):
                 break
 
     district_copy.output()
+    print(district_copy.calculate_own_costs())
     district_copy.plot_cables()
