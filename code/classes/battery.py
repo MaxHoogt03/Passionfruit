@@ -5,29 +5,7 @@ class Battery:
         self.x = int(x)
         self.y = int(y)
         self.capacity = capacity
-        self.houses = []
-
-    def read_battery(filename):
-        """
-        Reads a csv file and returns a list of batteries.
-
-        pre: filename battery data: str
-        post: returns list of Battery objects.
-
-        """
-        battery_list = []
-
-        # Reads the csv, returns the batteries in a list.
-        with open(f'{filename}', 'r') as file:
-            csv_reader = csv.DictReader(file)
-
-            for row in csv_reader:
-                x, y = row['positie'].split(',')
-                capacity = row['capaciteit']
-                battery_list.append(Battery(x, y, capacity))
-
-        return battery_list
-    
+        self.houses = []    
     
     def get_location(self):
         """

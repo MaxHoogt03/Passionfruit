@@ -7,29 +7,6 @@ class House:
         self.maxoutput = maxoutput
         self.cables = []
 
-    def read_house(filename):
-        """
-        Reads a csv file and returns a list of houses.
-
-        pre: filename house data: str
-        post: returns list of House objects.
-
-        """
-
-        house_list = []
-        # Reads the csv and adds the house objects to a list.
-        with open(f'{filename}', 'r') as file:
-            csv_reader = csv.DictReader(file)
-
-            for row in csv_reader:
-                x = row['x']
-                y = row['y']
-                maxoutput = row['maxoutput']
-                house_list.append(House(x, y, maxoutput))
-
-        return house_list
-
-
     def get_location(self):
         """
         retrieve x and y coordinate as a string.

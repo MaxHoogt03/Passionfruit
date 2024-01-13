@@ -1,38 +1,61 @@
 import json
+import csv
+
+from .house import House
+from .battery import Battery
 
 class District:
-    def __init__(self, value):
+    def __init__(self, value, path):
         self._value = value
-        self.houses = []
-        self.batteries = []
+        self.houses = self.load_houses(path)
+        self.batteries = self.load_batteries(path)
         self.own_costs = 0
         self.shared_costs = 0
 
 
-    def add_house(self, house):
+    def load_houses(self, path):
         """
-        Adds the house to a list.
+        Reads a csv file and returns a list of houses.
 
-        pre: Object house
-        post: none
+        pre: filename house data: str
+        post: returns list of House objects.
 
-        side-effects: appends to self.houses.
-        """
-
-        self.houses.append(house)
-
-
-    def add_battery(self, battery):
-        """
-        Adds the battery to a list.
-
-        pre: object battery
-        post: none
-
-        side-effects: appends to self.batteries.
         """
 
-        self.batteries.append(battery)
+        house_list = []
+        # Reads the csv and adds the house objects to a list.
+        with open(f"{path}houses.csv", 'r') as file:
+            csv_reader = csv.DictReader(file)
+
+            for row in csv_reader:
+                x = row['x']
+                y = row['y']
+                maxoutput = row['maxoutput']
+                house_list.append(House(x, y, maxoutput))
+
+        return house_list
+
+
+    def load_batteries(self, path):
+        """
+        Reads a csv file and returns a list of batteries.
+
+        pre: filename battery data: str
+        post: returns list of Battery objects.
+
+        """
+        battery_list = []
+
+        # Reads the csv, returns the batteries in a list.
+        with open(f"{path}batteries.csv", 'r') as file:
+            csv_reader = csv.DictReader(file)
+
+            for row in csv_reader:
+                x, y = row['positie'].split(',')
+                capacity = row['capaciteit']
+                battery_list.append(Battery(x, y, capacity))
+
+        return battery_list
 
 
     def calculate_own_costs(self):

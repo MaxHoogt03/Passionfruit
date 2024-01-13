@@ -9,9 +9,7 @@ from classes.battery import Battery
 from classes.district import District
 
 # Initializing our objects.
-district_1 = District(1)
-district_1_batteries = Battery.read_battery('../data/district_1/district-1_batteries.csv')
-district_1_houses = House.read_house('../data/district_1/district-1_houses.csv')
+district_1 = District(1, f'../data/district_1/district-1_')
 
 
 def calculate_distance(point1, point2):
@@ -29,11 +27,11 @@ def calculate_distance(point1, point2):
 total_min_distance = 0
 
 # Loops over all houses and stores houses in 1 of the 5 battery object, which the house is closest to. 
-for house in district_1_houses:
+for house in district_1.houses:
     smallest_distance = None
 
     # loops over all batteries and checks which battery is closest to current house, with its distance.
-    for battery in district_1_batteries:
+    for battery in district_1.batteries:
         distance = calculate_distance(house, battery)
 
         if smallest_distance is None or distance < smallest_distance:
@@ -71,13 +69,7 @@ for house in district_1_houses:
     # Adds to house to the current battery object.
     closest_battery.add_house(house)
 
-    # Adds the house to our current district.
-    district_1.add_house(house)
     
-# Adds the batteries to district_1 object.
-for battery in district_1_batteries:
-    district_1.add_battery(battery)
-
 # returns the "Sollution" into output.json
 district_1.output()
 
@@ -132,7 +124,7 @@ def plot_cables(houses):
         plt.plot(x_coords[-1], y_coords[-1], marker='s', color='red', markersize=10)
         
 # Plotting for all houses
-plot_cables(district_1_houses)
+plot_cables(district_1.houses)
 
 # Adjusting format of the plot.
 plt.xlabel('X Coordinate')
