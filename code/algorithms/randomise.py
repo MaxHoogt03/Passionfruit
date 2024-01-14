@@ -67,8 +67,6 @@ def random_solution(district):
                 # If no suitable battery is found for a house, set the retry flag and break the loop
                 print("Retrying")
                 retry = True
-                for battery in district_copy.batteries:
-                    battery.capacity = 1507
                 break
 
     district_copy.output()
