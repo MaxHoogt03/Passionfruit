@@ -23,4 +23,4 @@ if __name__ == "__main__":
     random_to_greedy.greedy_solution(district_1)
 
     # --------------------------- Greedy --------------------------
-    print(greedy.house_closest_to_battery(district_1))
+    print(greedy.greedy_solution(district_1))
