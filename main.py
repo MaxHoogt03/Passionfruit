@@ -1,6 +1,6 @@
 from code.classes import battery, district, house
 import matplotlib.pyplot as plt
-from code.algorithms import more_random, random_to_greedy
+from code.algorithms import more_random, random_to_greedy, greedy
 
 if __name__ == "__main__":
     district_1 = district.District(1, "data/district_1/district-1_")
@@ -21,3 +21,6 @@ if __name__ == "__main__":
 
     # --------------------------- Random to Greedy --------------------------
     random_to_greedy.greedy_solution(district_1)
+
+    # --------------------------- Greedy --------------------------
+    print(greedy.house_closest_to_battery(district_1))
