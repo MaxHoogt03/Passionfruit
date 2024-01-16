@@ -9,7 +9,7 @@ def randomize_houses(district):
     """
     random.shuffle(district.get_houses())
 
-def random_solution(district):
+def greedy_solution(district):
     retry = True
     while retry:
         district_copy = copy.deepcopy(district)
