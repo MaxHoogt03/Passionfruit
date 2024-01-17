@@ -3,17 +3,20 @@ import copy
 
 from ..classes.district import District
 
-def house_closest_to_battery(district):
+def house_closest_to_battery(district, connected_houses):
     """
     Finds the house in a list which has the least Manhattan distance to a battery with enough capacity.
     Removes the closest house and its corresponding battery from their respective lists.
 
     Args:
         district (District): The district containing houses and batteries.
+        connection_houses: set of already connected houses
 
     Returns:
         tuple: A tuple containing the closest house, its corresponding battery, and the minimum distance.
     """
+    print(len(connected_houses))
+
     def distance_to_battery(house, battery):
         if house.get_output() > battery.get_capacity():
             return float('inf')  # Return a large value for invalid distances
@@ -26,8 +29,6 @@ def house_closest_to_battery(district):
     closest_house = None
     closest_battery = None
 
-    connected_houses = set()
-
     for house in houses:
         if house in connected_houses:
             continue
@@ -39,6 +40,8 @@ def house_closest_to_battery(district):
                 closest_house = house
                 closest_battery = battery
 
+    print(closest_house.__str__(), closest_battery.__str__())
+
     if closest_house:
         connected_houses.add(closest_house)
 
@@ -48,10 +51,11 @@ def house_closest_to_battery(district):
 
 def greedy_solution(district):
     district_copy = copy.deepcopy(district)
+    connected_houses = set()
     total_min_distance = 0
 
-    while district_copy.get_houses():
-        house, battery, min_distance = house_closest_to_battery(district)
+    while True:
+        house, battery, min_distance = house_closest_to_battery(district_copy, connected_houses)
         # Variables for location of current house, closest battery, and the distance.
         x_house = house.x
         y_house = house.y
@@ -85,7 +89,7 @@ def greedy_solution(district):
 
         # Adds to house to the current battery object.
         battery.add_house(house)
-        print(f"{battery.x},{battery.y}: {battery.get_capacity()}")
+        # print(f"{battery.x},{battery.y}: {battery.get_capacity()}")
 
         
     print(f"Greedy costs: {district_copy.calculate_own_costs()}")

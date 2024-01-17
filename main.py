@@ -4,6 +4,8 @@ from code.algorithms import more_random, random_to_greedy, greedy
 
 if __name__ == "__main__":
     district_1 = district.District(1, "data/district_1/district-1_")
+    district_2 = district.District(2, "data/district_2/district-2_")
+    district_3 = district.District(3, "data/district_3/district-3_")
 
     # --------------------------- Random --------------------------
     print(more_random.random_solution(district_1))
@@ -23,4 +25,4 @@ if __name__ == "__main__":
     random_to_greedy.greedy_solution(district_1)
 
     # --------------------------- Greedy --------------------------
-    print(greedy.greedy_solution(district_1))
+    print(greedy.greedy_solution(district_3))
