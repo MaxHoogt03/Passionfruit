@@ -69,7 +69,35 @@ class District:
         """
         return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
+    def calculate_shared_costs(self):
+        """
+        calculates the total cost of laying the cables, but makes sure to account for the fact
+        that houses can share a cable, so it subtracts the cables already laying there.
+        
+        pre: none
+        post: returns an int
 
+        side-effect: adjusts the value of self.shared_costs
+        """
+        self.shared_costs = 0
+        cable_dict = {}
+        cable_storedval = None
+        number_of_duplicates = 0
+        for house in self.houses:
+            for cable in house.get_cables():
+                if cable_storedval in cable_dict:
+                    if cable_dict[cable_storedval] == cable:
+                        number_of_duplicates += 1
+                
+                
+                elif cable_storedval is not None:
+                    cable_dict[cable_storedval] = cable
+
+                cable_storedval = cable
+
+        return number_of_duplicates
+    
+    
     def calculate_own_costs(self):
         """
         calculates the cost of laying the cables in the district and returns it.
