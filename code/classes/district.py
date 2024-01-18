@@ -84,10 +84,13 @@ class District:
         cable_storedval = None
         number_of_duplicates = 0
         for house in self.houses:
+            cable_storedval = None 
             for cable in house.get_cables():
+                print(number_of_duplicates)
                 if cable_storedval in cable_dict:
                     if cable_dict[cable_storedval] == cable:
                         number_of_duplicates += 1
+                    else
                 
                 
                 elif cable_storedval is not None:
@@ -95,9 +98,9 @@ class District:
 
                 cable_storedval = cable
 
-        return number_of_duplicates
+        return number_of_duplicates, cable_dict
     
-    
+
     def calculate_own_costs(self):
         """
         calculates the cost of laying the cables in the district and returns it.
