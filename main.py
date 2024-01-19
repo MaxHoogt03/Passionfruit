@@ -1,6 +1,6 @@
 from code.classes import battery, district, house
 import matplotlib.pyplot as plt
-from code.algorithms import more_random, random_to_greedy, greedy
+from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr
 
 if __name__ == "__main__":
     district_1 = district.District(1, "data/district_1/district-1_")
@@ -14,7 +14,9 @@ if __name__ == "__main__":
     district_3.heatmap()
 
     # --------------------------- Random --------------------------
-    print(more_random.random_solution(district_1))
+    random_solution_district_1 = rtg.RandomGreedy(district_1)
+    random_solution_district_1.greedy_solution()
+    print(random_solution_district_1.district.calculate_own_costs())
     
     # # Histogram to see how the random cable length is distributed
     # results = []
