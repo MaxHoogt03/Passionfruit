@@ -43,6 +43,9 @@ class RandomGreedy:
                 house.add_cable(f"{x_house - dist_x}, {y_house - i}")
 
     def greedy_solution(self):
+        """
+        Finds a greedy solution after random order of houses
+        """
         retry = True
         while retry:
             district_copy = copy.deepcopy(self.district)
