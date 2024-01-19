@@ -90,7 +90,6 @@ class District:
                 if cable_storedval in cable_dict:
                     if cable_dict[cable_storedval] == cable:
                         number_of_duplicates += 1
-                    else
                 
                 
                 elif cable_storedval is not None:
@@ -178,6 +177,31 @@ class District:
         plt.title('Cable Paths for All Houses')
         plt.grid(True)
         plt.savefig('plot.png')
+
+    def heatmap(self):
+        """
+        Creates a heatmap using the x and y coordinates of all the houses and stores them to heatmap.png
+
+        pre: None
+        post: None
+        """
+
+        x = []
+        y = []
+
+        for house in self.get_houses():
+            x.append(house.x)
+            y.append(house.y)
+
+        plt.hist2d(x, y, bins=(5,5))
+
+        plt.colorbar()
+        plt.xlabel('X-axis')
+        plt.ylabel('Y-axis')
+        plt.title(f'Heatmap for district {self._value}')
+        plt.savefig(f'heatmap{self._value}.png')
+        plt.clf()
+
 
 
     def output(self):
