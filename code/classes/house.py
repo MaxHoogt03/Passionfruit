@@ -52,6 +52,7 @@ class House:
 
         side-effects: removes all items from self.cables
         """
+        self.cables.clear()
 
     def get_cables(self):
         """

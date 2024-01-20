@@ -37,4 +37,4 @@ if __name__ == "__main__":
 
     # --------------------------- Random to Hillclimber -----------------------------
     hillclimber_1 = hc.Hillclimber(random_solution_district_1)
-    hillclimber_1.run(100000, True)
+    hillclimber_1.run(1000, True)

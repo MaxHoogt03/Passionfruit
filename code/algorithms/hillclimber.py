@@ -1,6 +1,8 @@
 import copy
 import random
 
+from ..classes.district import District
+
 class Hillclimber:
     MAX_ITERATIONS = 100
 
@@ -48,7 +50,6 @@ class Hillclimber:
             print("Could not find better random connection.")
 
         else:
-            
             house_1.delete_cables()
             house_2.delete_cables()
 
@@ -57,6 +58,10 @@ class Hillclimber:
 
             battery_1.remove_house(house_1)
             battery_2.remove_house(house_2)
+
+            # print(f"old distance: {District.calculate_distance(house_1, battery_1) + District.calculate_distance(house_2, battery_2)}")
+            # print(f"new distance: {District.calculate_distance(house_1, battery_2) + District.calculate_distance(house_2, battery_1)}")
+
 
             self.add_connection(house_1, battery_2)
             self.add_connection(house_2, battery_1)
