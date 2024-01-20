@@ -79,8 +79,10 @@ class Hillclimber:
 
     def run(self, iterations, verbose=False):
 
+        self.iterations = iterations
+
         for i in range(iterations):
-            print(f"Iteration {i}/{iterations}, current value: {self.costs}") if verbose else None
+            print(f"Iteration {i+1}/{iterations}, current value: {self.costs}") if verbose else None
 
             new_district = copy.deepcopy(self.district)
             self.mutate_random_connection(new_district)

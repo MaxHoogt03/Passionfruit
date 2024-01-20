@@ -1,6 +1,6 @@
 from code.classes import battery, district, house
 import matplotlib.pyplot as plt
-from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc
+from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc
 
 if __name__ == "__main__":
     district_1 = district.District(1, "data/district_1/district-1_")
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # plt.savefig('plot.png')
 
     # --------------------------- Random to Greedy --------------------------
-    random_solution_district_1 = rtg.RandomGreedy(district_1)
+    random_solution_district_1 = rtg.RandomGreedy(district_2)
     random_solution_district_1.greedy_solution()
     random_solution_district_1.district.plot_cables()
     # random_solution_district_1.district.output()
@@ -37,5 +37,9 @@ if __name__ == "__main__":
     # print(greedy.greedy_solution(district_3))
 
     # --------------------------- Random to Hillclimber -----------------------------
-    hillclimber_1 = hc.Hillclimber(random_solution_district_1.district)
-    hillclimber_1.run(10000, True)
+    # hillclimber_1 = hc.Hillclimber(random_solution_district_1.district)
+    # hillclimber_1.run(10000, True)
+
+    # --------------------------- Random to Simulated Annealing ---------------------
+    sc_1 = sc.SimulatedAnnealing(random_solution_district_1.district)
+    sc_1.run(10000, True)
