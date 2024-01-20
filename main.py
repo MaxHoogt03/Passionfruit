@@ -36,7 +36,8 @@ if __name__ == "__main__":
     random_solution_district_1.district.plot_cables()
     # random_solution_district_1.district.output()
     # --------------------------- Greedy --------------------------
-    # print(greedy.greedy_solution(district_3))
+    # gr_1 = gr.Greedy(district_1)
+    # gr_1.greedy_solution()
 
     # --------------------------- Random to Hillclimber -----------------------------
     # hillclimber_1 = hc.Hillclimber(random_solution_district_1.district)
@@ -44,4 +45,4 @@ if __name__ == "__main__":
 
     # --------------------------- Random to Simulated Annealing ---------------------
     sc_1 = sc.SimulatedAnnealing(random_solution_district_1.district)
-    sc_1.run(10000, True)
+    sc_1.run(20000, True)
