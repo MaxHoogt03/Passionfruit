@@ -195,9 +195,9 @@ class District:
 
         plt.xlabel('X Coordinate')
         plt.ylabel('Y Coordinate')
-        plt.title('Cable Paths for All Houses')
+        plt.title(f'Cable Paths for All Houses district {self._value}')
         plt.grid(True)
-        plt.savefig('plot.png')
+        plt.savefig(f'visualisation/gridcables/plot{self._value}.png')
 
     def heatmap(self):
         """
