@@ -1,7 +1,7 @@
 import json
 import csv
 import matplotlib.pyplot as plt
-
+import random
 from .house import House
 from .battery import Battery
 
@@ -150,32 +150,54 @@ class District:
         pre: None
         post: None
         """
+
+        colors = [
+        '#7fbfde',
+        '#97d07d',
+        '#fc8d8d',
+        '#fecb67',
+        '#d1a3d9',
+        '#ff7f7f',
+        '#2e9bda',
+        '#44b030',
+        ]
+        color_index = 0
+
         for house in self.houses:
             # Need to store the coordinates in lists, since they are stored as strings.
+            random_offset = random.uniform(-1, 1)
+            cable_and_house_color = colors[color_index % len(colors)]
+            color_index += 1
+
             x_coords = []
             y_coords = []
 
             # Converts coordinate strings to int and adds them to their list.
             for coord in house.get_cables():
                 x, y = coord.split(',')
-                x_coords.append(int(x))
-                y_coords.append(int(y))
+                x = int(x)
+                y = int(y)
+                if coord != house.get_cables()[-1]:
+                    x = int(x) + random_offset  # Apply the random offset to x coordinate
+                    y = int(y) + random_offset # Apply the random offset to y coordinate
+                x_coords.append(x)
+                y_coords.append(y)
 
             # Plot the Lines
-            plt.plot(x_coords, y_coords, color='blue')
+            plt.plot(x_coords, y_coords, color=cable_and_house_color, linewidth=1)
 
             # Plots the houses (The fist cable can be used for location of the house since the cable starts at the house.)
-            plt.plot(x_coords[0], y_coords[0], marker='^', color='green', markersize=10)
+            plt.plot(x_coords[0], y_coords[0]+1, marker='^', color=cable_and_house_color, markersize=10)
 
-            # Plots the batteries (Same logic as above.)
-            plt.plot(x_coords[-1], y_coords[-1], marker='s', color='red', markersize=10)
+        # Plot the batteries
+        for battery in self.batteries:
+            plt.plot(battery.x, battery.y, marker='s', color='red', markersize=10)
 
-        # Adjusting format of the plot.
         plt.xlabel('X Coordinate')
         plt.ylabel('Y Coordinate')
         plt.title('Cable Paths for All Houses')
         plt.grid(True)
-        plt.savefig(f'visualisation/gridcables/grid{self._value}.png')
+        plt.savefig('plot.png')
 
     def heatmap(self):
         """

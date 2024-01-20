@@ -3,68 +3,68 @@ import copy
 
 from ..classes.district import District
 
-def randomize_houses(district):
-    """
-    Creates a deep copy of the list of houses and randomly shuffles this list.
-    """
-    random.shuffle(district.get_houses())
+class Random_to_Random:
+    def __init__(self, district):
+        self.district = district
+        self.random_solution()
+        
+    def add_cables(self, house, battery):
+        """
+        Adds cable coordinates from the house to the battery.
+        """
+        dist_x, dist_y = house.x - battery.x, house.y - battery.y
 
-def random_solution(district):
-    retry = True
-    while retry:
-        district_copy = copy.deepcopy(district)
-        randomize_houses(district_copy)
+        # Walking over the x and y differences
+        if dist_x < 0:
+            for i in range(abs(dist_x)):
+                house.add_cable(f"{house.x + i}, {house.y}")
+        elif dist_x > 0:
+            for i in range(dist_x):
+                house.add_cable(f"{house.x - i}, {house.y}")
 
-        total_min_distance = 0
-        retry = False  # Reset the retry flag at the beginning of each attempt
-        for house in district_copy.houses:
-            distance = None
-            battery = None
-            random.shuffle(district_copy.batteries)
-            # loops over all batteries and checks which battery is closest to current house, with its distance.
-            for battery in district_copy.batteries:
-                if battery.get_capacity() >= house.get_output():
-                    distance = District.calculate_distance(house, battery)
-                    break
+        if dist_y < 0:
+            for i in range(abs(dist_y) + 1):
+                house.add_cable(f"{house.x - dist_x}, {house.y + i}")
+        elif dist_y > 0:
+            for i in range(dist_y + 1):
+                house.add_cable(f"{house.x - dist_x}, {house.y - i}")
+
+    def find_valid_battery(self, house, battery):
+        for battery in self.district_copy.batteries:
             
-            if battery is not None and distance is not None:
-                # Variables for location of current house, closest battery, and the distance.
-                x_house = house.x
-                y_house = house.y
-                x_battery = battery.x
-                y_battery = battery.y
-                dist_x = x_house - x_battery
-                dist_y = y_house - y_battery
+            if battery.get_capacity() >= house.get_output():
+                distance = District.calculate_distance(house, battery)
+                return battery, distance
+        return None, None
 
-                # Adds the cables to the houses, by first walking over the x difference and then the y difference.
-                if dist_x < 0:
-                    for i in range(abs(dist_x)):
-                        house.add_cable(f"{x_house + i}, {y_house}")
-                
-                elif dist_x > 0:
-                    for i in range(dist_x):
-                        house.add_cable(f"{x_house-i}, {y_house}")
+    def random_solution(self):
+        """
+        Generates a random solution for connecting houses to batteries.
+        """
+        retry = True
+        while retry:
+            self.district_copy = copy.deepcopy(self.district)
+            random.shuffle(self.district_copy.houses)
+            total_min_distance = 0
+            retry = False  # Reset the retry flag at the beginning of each attempt
 
-                if dist_y < 0:
-                    for i in range(abs(dist_y) + 1):
-                        house.add_cable(f"{x_house - dist_x}, {y_house + i}")
-                
-                elif dist_y > 0:
-                    for i in range(dist_y + 1):
-                        house.add_cable(f"{x_house-dist_x}, {y_house - i}")
+            for house in self.district_copy.houses:
+                random.shuffle(self.district_copy.batteries)
+                battery, distance = self.find_valid_battery(house, self.district_copy.batteries)
 
-                # Adds all distances of the houses to their closest battery.
-                total_min_distance += distance
+                if battery is not None and distance is not None:
+                    # Adds the cables to the houses, by first walking over the x difference and then the y difference.
+                    self.add_cables(house, battery)
 
-                # Retract the output from the house from the capacity of the battery.
-                battery.retract_capacity(house.get_output())
+                    # Adds all distances of the houses to their closest battery.
+                    total_min_distance += distance
 
-                # Adds to house to the current battery object.
-                battery.add_house(house)
-            else:
-                # If no suitable battery is found for a house, set the retry flag and break the loop
-                print("Retry")
-                retry = True
-                break
+                    # Retract the output from the house from the capacity of the battery.
+                    battery.retract_capacity(house.get_output())
 
-    return district_copy
+                    # Adds to house to the current battery object.
+                    battery.add_house(house)
+                else:
+                    # If no suitable battery is found for a house, set the retry flag and break the loop
+                    retry = True
+                    break

@@ -14,6 +14,8 @@ if __name__ == "__main__":
     district_3.heatmap()
 
     # --------------------------- Random --------------------------
+    data = mr.Random_to_Random(district_1)
+    data.district_copy.plot_cables()
     # random_solution_district_1 = mr.random_solution(district_1)
     # print(random_solution_district_1.district.calculate_own_costs())
     
