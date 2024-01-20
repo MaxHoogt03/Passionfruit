@@ -1,7 +1,7 @@
 import json
 import csv
 import matplotlib.pyplot as plt
-
+import random
 from .house import House
 from .battery import Battery
 
