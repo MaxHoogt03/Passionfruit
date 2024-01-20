@@ -36,6 +36,15 @@ class Battery:
         post: none
         """
         self.capacity -= output
+
+    def add_capacity(self, output):
+        """
+        retracts capacity from battery by the output from a certain house.
+
+        pre: output
+        post: none
+        """
+        self.capacity += output 
     
 
     def add_house(self, house):
@@ -49,6 +58,19 @@ class Battery:
         """
         self.houses.append(house)
     
+    def remove_house(self, house):
+        """
+        Removes the house from list.
+
+        pre: House
+        post: none
+
+        side-effects: removes house from self.houses.
+        """
+        if house in self.houses:
+            self.houses.remove(house)
+        else:
+            print(f"House {house} not found in the list of houses for Battery {self}")
 
     def get_houses(self):
         """

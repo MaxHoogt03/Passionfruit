@@ -67,14 +67,4 @@ def random_solution(district):
                 retry = True
                 break
 
-    district_copy.output()
-    # Calculate cable length with overlapping cables in consideration
-    list_cables = []
-    sum = 0
-    for house in district_copy.houses:
-        sum += house.count_cables()
-        for cable in house.get_cables():
-            list_cables.append(cable)
-    set_cables = set(list_cables)
-    list_cables = list(set_cables)
-    return [len(list_cables)-150, sum]
+    return district_copy

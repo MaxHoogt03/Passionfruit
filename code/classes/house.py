@@ -43,6 +43,16 @@ class House:
 
         self.cables.append(coordinates)
 
+    def delete_cables(self):
+        """
+        Deletes all cables
+
+        pre: none
+        post: none
+
+        side-effects: removes all items from self.cables
+        """
+
     def get_cables(self):
         """
         Returns coordinates of cables.
