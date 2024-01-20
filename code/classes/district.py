@@ -2,7 +2,6 @@ import json
 import csv
 import matplotlib.pyplot as plt
 
-
 from .house import House
 from .battery import Battery
 
@@ -176,7 +175,7 @@ class District:
         plt.ylabel('Y Coordinate')
         plt.title('Cable Paths for All Houses')
         plt.grid(True)
-        plt.savefig(f'plot{self._value}.png')
+        plt.savefig(f'visualisation/gridcables/grid{self._value}.png')
 
     def heatmap(self):
         """
@@ -199,7 +198,7 @@ class District:
         plt.xlabel('X-axis')
         plt.ylabel('Y-axis')
         plt.title(f'Heatmap for district {self._value}')
-        plt.savefig(f'heatmap{self._value}.png')
+        plt.savefig(f'visualisation/heatmaps/heatmap{self._value}.png')
         plt.clf()
 
 

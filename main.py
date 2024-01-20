@@ -14,7 +14,7 @@ if __name__ == "__main__":
     district_3.heatmap()
 
     # --------------------------- Random --------------------------
-    random_solution_district_1 = mr.random_solution(district_1)
+    # random_solution_district_1 = mr.random_solution(district_1)
     # print(random_solution_district_1.district.calculate_own_costs())
     
     # # Histogram to see how the random cable length is distributed
@@ -29,12 +29,13 @@ if __name__ == "__main__":
     # plt.savefig('plot.png')
 
     # --------------------------- Random to Greedy --------------------------
-    # random_solution_district_1 = rtg.RandomGreedy(district_1)
-    # random_solution_district_1.greedy_solution()
+    random_solution_district_1 = rtg.RandomGreedy(district_1)
+    random_solution_district_1.greedy_solution()
+    random_solution_district_1.district.plot_cables()
     # random_solution_district_1.district.output()
     # --------------------------- Greedy --------------------------
     # print(greedy.greedy_solution(district_3))
 
     # --------------------------- Random to Hillclimber -----------------------------
-    hillclimber_1 = hc.Hillclimber(random_solution_district_1)
-    hillclimber_1.run(1000, True)
+    hillclimber_1 = hc.Hillclimber(random_solution_district_1.district)
+    hillclimber_1.run(10000, True)

@@ -59,10 +59,6 @@ class Hillclimber:
             battery_1.remove_house(house_1)
             battery_2.remove_house(house_2)
 
-            # print(f"old distance: {District.calculate_distance(house_1, battery_1) + District.calculate_distance(house_2, battery_2)}")
-            # print(f"new distance: {District.calculate_distance(house_1, battery_2) + District.calculate_distance(house_2, battery_1)}")
-
-
             self.add_connection(house_1, battery_2)
             self.add_connection(house_2, battery_1)
 
