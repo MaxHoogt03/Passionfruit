@@ -5,7 +5,7 @@ from .hillclimber import Hillclimber
 
 class SimulatedAnnealing(Hillclimber):
 
-    def __init__(self, district, temperature = 1000):
+    def __init__(self, district, temperature = 200):
         super().__init__(district)
 
         self.T0 = temperature
@@ -14,7 +14,7 @@ class SimulatedAnnealing(Hillclimber):
     def update_temperature(self):
 
         # self.T = self.T - (self.T0 / self.iterations)
-        cooling_factor = 0.95  # You can adjust this value
+        cooling_factor = 0.999  # You can adjust this value
         self.T = self.T * cooling_factor
 
     def check_solution(self, new_district):

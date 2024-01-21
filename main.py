@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     # --------------------------- Random --------------------------
     data = mr.Random_to_Random(district_1)
-    data.district_copy.plot_cables()
+    data.random_solution()
     # random_solution_district_1 = mr.random_solution(district_1)
     # print(random_solution_district_1.district.calculate_own_costs())
     
@@ -31,18 +31,18 @@ if __name__ == "__main__":
     # plt.savefig('plot.png')
 
     # --------------------------- Random to Greedy --------------------------
-    random_solution_district_1 = rtg.RandomGreedy(district_2)
+    random_solution_district_1 = rtg.RandomGreedy(district_1)
     random_solution_district_1.greedy_solution()
-    random_solution_district_1.district.plot_cables()
+    # random_solution_district_1.district.plot_cables()
     # random_solution_district_1.district.output()
     # --------------------------- Greedy --------------------------
     # gr_1 = gr.Greedy(district_1)
     # gr_1.greedy_solution()
 
     # --------------------------- Random to Hillclimber -----------------------------
-    # hillclimber_1 = hc.Hillclimber(random_solution_district_1.district)
-    # hillclimber_1.run(10000, True)
+    hillclimber_1 = hc.Hillclimber(random_solution_district_1.district)
+    hillclimber_1.run(4000, True)
 
     # --------------------------- Random to Simulated Annealing ---------------------
-    sc_1 = sc.SimulatedAnnealing(random_solution_district_1.district)
-    sc_1.run(20000, True)
+    # sc_1 = sc.SimulatedAnnealing(random_solution_district_1.district)
+    # sc_1.run(5000, True)
