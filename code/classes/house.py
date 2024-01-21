@@ -6,7 +6,9 @@ class House:
         self.y = int(y)
         self.maxoutput = maxoutput
         self.cables = []
+        self.score = 0
 
+    
     def get_location(self):
         """
         retrieve x and y coordinate as a string.

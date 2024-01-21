@@ -6,43 +6,54 @@ Relocates batteries with several options ranging from random to more sophisticat
 
 import csv
 import random
+from .house import House
+from .battery import Battery
+from .district import District
 
 class Relocation:
 
-    def __init__(self, file_path):
-        self.csv_url = file_path
+    def __init__(self, district):
+        self.district = district
 
-    def Randomise(self):
+    
+    def randomise(self):
+        """
+        Changes the batteries to a random location.
+        """
+        for battery in self.district.get_batteries():
+            battery.change_location(random.randint(0,50),random.randint(0,50))
+
+    
+    def most_houses(self, optional_radius = 5):
         
-        # reads the districts batteriesfile
-        with open(f"{self.file_path}batteries.csv","r") as file:
-            csv_reader = csv.DictReader(file)
-            next(csv_reader)
+        list_of_houses = self.district.get_houses()
+        list_of_scores = []
+        for house in list_of_houses:
+            score = 0
+            location_target_x = house.x
+            location_target_y = house.y
 
-            capacity_list = []
-            for row in csv_reader:
-                capacity_list.append(row["capaciteit"])
+            for i in range(0, len(list_of_houses)):
+                location_rest_x = list_of_houses[i].x 
+                location_rest_y = list_of_houses[i].y
+                
+                if abs(location_target_x - location_rest_x) <= optional_radius and abs(location_target_y - location_rest_y) <= optional_radius:
+                    score +=1
 
-        # storage for the data that needs to be written to the csv file.
-        data = []
-        # make the data
+            if score > 0:
+                score = score - 1
+
+            house.score = score
+            list_of_scores.append(score)
+        
+        best_houses = []
         for i in range(0,5):
-            x_position = random.randint(0,50)
-            y_position = random.randint(0,50)
-            data.append({
-                "positie": f"{x_position}, {y_position}",
-                "capaciteit": capacity_list[i]
-                })
+            max_score_index = 
+            """Notes: je probeert hier de indexen op te slaan op de beste huizen, maar de beste huizen worden pas geselecteerd als ze meer dan de radius van
+            elkaar afzitten, dus max huizen mogen niet dichterbij dan de radius bij elkaar zitten."""
         
-        # writes the positions to a randomised file.
-        with open(f"{self.file_path}Randomised_batteries.csv", "w", newline = '') as csvfile:
-            fieldnames = ['positie', 'capaciteit']
 
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            
-            for row in data:
-                writer.writerow(row)
+
 
 
 

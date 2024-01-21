@@ -17,6 +17,13 @@ class Battery:
         """
         return f"{self.x},{self.y}"
     
+    def change_location(self, x, y):
+        """
+        changes the location of the batteries.
+        """
+        self.x = x
+        self.y = y
+    
     
     def get_capacity(self):
         """
