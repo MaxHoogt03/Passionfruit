@@ -2,47 +2,75 @@ from code.classes import battery, district, house
 import matplotlib.pyplot as plt
 from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc
 
+def prompting():
+    print("Welcome to Passionfruits Smartgrid Project.")
+    print("Which algorithm or code would you like to run? Press the number you would like to run and hit enter.")
+    print("1. Random")
+    print("2. Random to greedy")
+    print("3. Greedy")
+    print("4. Random to hillclimber")
+    print("5 Random to Simmulated Annealing")
+    algorithm = int(input("Insert Here: "))
+    district = int(input("Nice, which district do you want to run the algorithm on? Insert here: "))
+    return algorithm, district
+
+
+
+
+
+
 if __name__ == "__main__":
-    district_1 = district.District(1, "data/district_1/district-1_")
-    district_2 = district.District(2, "data/district_2/district-2_")
-    district_3 = district.District(3, "data/district_3/district-3_")
+    choice_list = prompting()
+    districts = [
+        district.District(1, "data/district_1/district-1_"),
+        district.District(2, "data/district_2/district-2_"),
+        district.District(3, "data/district_3/district-3_")
+    ]
 
 
     # --------------------------- Heatmap -------------------------
-    district_1.heatmap()
-    district_2.heatmap()
-    district_3.heatmap()
-
+    districts[0].heatmap()
+    districts[1].heatmap()
+    districts[2].heatmap()
     # --------------------------- Random --------------------------
-    data = mr.Random_to_Random(district_1)
-    data.random_solution()
-    # random_solution_district_1 = mr.random_solution(district_1)
-    # print(random_solution_district_1.district.calculate_own_costs())
-    
-    # # Histogram to see how the random cable length is distributed
-    # results = []
-    # for i in range(0):
-    #     result = more_random.random_solution(district_1)
-    #     results.append(result)
-    # plt.hist(results, bins=20)
-    # plt.title('Histogram of Results')
-    # plt.xlabel('Result Value')
-    # plt.ylabel('Frequency')
-    # plt.savefig('plot.png')
+    if choice_list[0] == 1: 
+        data = mr.Random_to_Random(districts[choice_list[1] - 1])
+        data.district_copy.plot_cables()
+        random_solution_district = data.random_solution()
+        print(random_solution_district.district.calculate_own_costs())
+        
+        #Histogram to see how the random cable length is distributed
+        results = []
+        for i in range(0):
+            result = data.random_solution()
+            results.append(result)
+        plt.hist(results, bins=20)
+        plt.title('Histogram of Results')
+        plt.xlabel('Result Value')
+        plt.ylabel('Frequency')
+        plt.savefig('plot.png')
 
     # --------------------------- Random to Greedy --------------------------
-    random_solution_district_1 = rtg.RandomGreedy(district_1)
-    random_solution_district_1.greedy_solution()
-    # random_solution_district_1.district.plot_cables()
-    # random_solution_district_1.district.output()
+    if choice_list[0] == 2:
+        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        random_solution_district.greedy_solution()
+        random_solution_district.district.plot_cables()
+        random_solution_district.district.output()
     # --------------------------- Greedy --------------------------
-    # gr_1 = gr.Greedy(district_1)
-    # gr_1.greedy_solution()
+    if choice_list[0] == 3:
+        gr = gr.Greedy(districts[choice_list[1] - 1])
+        gr.greedy_solution()
 
     # --------------------------- Random to Hillclimber -----------------------------
-    hillclimber_1 = hc.Hillclimber(random_solution_district_1.district)
-    hillclimber_1.run(4000, True)
+    if choice_list[0] == 4:
+        data = mr.Random_to_Random(districts[choice_list[1] - 1])
+        random_solution_district = mr.random_solution()
+        hillclimber_1 = hc.Hillclimber(random_solution_district.district)
+        hillclimber_1.run(10000, True)
 
     # --------------------------- Random to Simulated Annealing ---------------------
-    # sc_1 = sc.SimulatedAnnealing(random_solution_district_1.district)
-    # sc_1.run(5000, True)
+    if choice_list[0] == 5:
+        data = mr.Random_to_Random(districts[choice_list[1] - 1])
+        random_solution_district = mr.random_solution(districts[choice_list[1] - 1])
+        sc_1 = sc.SimulatedAnnealing(random_solution_district.district)
+        sc_1.run(20000, True)
