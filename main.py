@@ -29,26 +29,25 @@ if __name__ == "__main__":
 
 
     # --------------------------- Heatmap -------------------------
-    districts[0].heatmap()
+    districts[0].heatmap(3)
     districts[1].heatmap()
     districts[2].heatmap()
     # --------------------------- Random --------------------------
     if choice_list[0] == 1: 
         data = mr.Random_to_Random(districts[choice_list[1] - 1])
-        data.district_copy.plot_cables()
         random_solution_district = data.random_solution()
         print(random_solution_district.district.calculate_own_costs())
         
         #Histogram to see how the random cable length is distributed
-        results = []
-        for i in range(0):
-            result = data.random_solution()
-            results.append(result)
-        plt.hist(results, bins=20)
-        plt.title('Histogram of Results')
-        plt.xlabel('Result Value')
-        plt.ylabel('Frequency')
-        plt.savefig('plot.png')
+        # results = []
+        # for i in range(0):
+        #     result = data.random_solution()
+        #     results.append(result)
+        # plt.hist(results, bins=20)
+        # plt.title('Histogram of Results')
+        # plt.xlabel('Result Value')
+        # plt.ylabel('Frequency')
+        # plt.savefig('plot.png')
 
     # --------------------------- Random to Greedy --------------------------
     if choice_list[0] == 2:

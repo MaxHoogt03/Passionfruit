@@ -199,7 +199,7 @@ class District:
         plt.grid(True)
         plt.savefig(f'visualisation/gridcables/plot{self._value}.png')
 
-    def heatmap(self):
+    def heatmap(self, heatsize = 5):
         """
         Creates a heatmap using the x and y coordinates of all the houses and stores them to heatmap.png
 
@@ -214,7 +214,7 @@ class District:
             x.append(house.x)
             y.append(house.y)
 
-        plt.hist2d(x, y, bins=(5,5))
+        plt.hist2d(x, y, bins=(heatsize,heatsize))
 
         plt.colorbar()
         plt.xlabel('X-axis')
