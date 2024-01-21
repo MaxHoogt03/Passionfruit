@@ -63,14 +63,14 @@ if __name__ == "__main__":
 
     # --------------------------- Random to Hillclimber -----------------------------
     if choice_list[0] == 4:
-        data = mr.Random_to_Random(districts[choice_list[1] - 1])
-        random_solution_district = mr.random_solution()
+        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        random_solution_district.greedy_solution()
         hillclimber_1 = hc.Hillclimber(random_solution_district.district)
         hillclimber_1.run(10000, True)
 
     # --------------------------- Random to Simulated Annealing ---------------------
     if choice_list[0] == 5:
-        data = mr.Random_to_Random(districts[choice_list[1] - 1])
-        random_solution_district = mr.random_solution(districts[choice_list[1] - 1])
+        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        random_solution_district.greedy_solution()
         sc_1 = sc.SimulatedAnnealing(random_solution_district.district)
         sc_1.run(20000, True)
