@@ -79,24 +79,24 @@ class District:
         side-effect: adjusts the value of self.shared_costs
         """
         self.shared_costs = 0
-        cable_dict = {}
         cable_storedval = None
         number_of_duplicates = 0
-        for house in self.houses:
-            cable_storedval = None 
-            for cable in house.get_cables():
-                print(number_of_duplicates)
-                if cable_storedval in cable_dict:
-                    if cable_dict[cable_storedval] == cable:
-                        number_of_duplicates += 1
-                
-                
-                elif cable_storedval is not None:
-                    cable_dict[cable_storedval] = cable
+        for battery in self.batteries:
+            cable_dict = {}
+            for house in battery.get_houses():
+                cable_storedval = None 
+                for cable in house.get_cables():
+                    if cable_storedval in cable_dict:
+                        if cable_dict[cable_storedval] == cable:
+                            number_of_duplicates += 1
+                    
+                    
+                    elif cable_storedval is not None:
+                        cable_dict[cable_storedval] = cable
 
-                cable_storedval = cable
-
-        return number_of_duplicates, cable_dict
+                    cable_storedval = cable
+        self.shared_costs = 9*number_of_duplicates
+        return self.shared_costs
     
 
     def calculate_own_costs(self):
