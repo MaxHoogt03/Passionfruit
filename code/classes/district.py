@@ -96,7 +96,7 @@ class District:
 
                     cable_storedval = cable
         self.shared_costs = 9*number_of_duplicates
-        return self.shared_costs
+        return int(self.shared_costs)
     
 
     def calculate_own_costs(self):
@@ -237,7 +237,8 @@ class District:
         data = [
             {
                 "district": self._value,
-                "own-costs": self.calculate_own_costs()
+                "own-costs": self.calculate_own_costs(),
+                "shared-costs": self.calculate_shared_costs()
             },
         ]
 

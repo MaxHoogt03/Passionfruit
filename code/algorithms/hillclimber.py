@@ -6,9 +6,13 @@ from ..classes.district import District
 class Hillclimber:
     MAX_ITERATIONS = 100
 
-    def __init__(self, district):
+    def __init__(self, district, own_costs = True):
         self.district = copy.deepcopy(district)
-        self.costs = district.calculate_own_costs()
+        self.own_costs = own_costs
+        if own_costs:
+            self.costs = district.calculate_own_costs()
+        else:
+            self.costs = district.calculate_shared_costs()
 
     def add_connection(self, house, battery):
         """
@@ -69,7 +73,11 @@ class Hillclimber:
             battery_2.retract_capacity(house_1.get_output())
 
     def check_solution(self, new_district):
-        new_costs = new_district.calculate_own_costs()
+        if self.own_costs:
+            new_costs = new_district.calculate_own_costs()
+
+        else:
+            new_costs = new_district.calculate_shared_costs()
         old_costs = self.costs
 
 
