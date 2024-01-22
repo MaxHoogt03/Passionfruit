@@ -4,12 +4,17 @@ from ..classes.district import District
 from ..classes.queue import Queue
 
 class Iterative:
-    def __init__(self, district):
+    def __init__(self, district, own_costs = True):
         self.district = copy.deepcopy(district)
         self.last_130_houses = Queue()
         for i in range(150):
             self.furthest_house()
             self.replace_battery()
+        self.costs = own_costs
+        if own_costs:
+            self.costs = self.district.calculate_own_costs()
+        else:
+            self.costs = self.district.calculate_shared_costs()
         self.run()
 
     def furthest_house(self):
@@ -83,7 +88,6 @@ class Iterative:
                 house.add_cable(f"{house.x - dist_x}, {house.y - i}")
 
     def run(self):
-
-        print(self.district.calculate_own_costs())
-        return self.district
+        print(self.costs)
+        return self.costs
     

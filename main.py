@@ -82,4 +82,4 @@ if __name__ == "__main__":
     if choice_list[0] == 6:
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
-        iterative = itr.Iterative(random_solution_district.district)
+        iterative = itr.Iterative(random_solution_district.district, own_costs = True)
