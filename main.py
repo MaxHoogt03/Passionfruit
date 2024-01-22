@@ -1,6 +1,7 @@
 from code.classes import battery, district, house
 import matplotlib.pyplot as plt
-from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, battery_relocation as br
+from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, battery_relocation as br, iterative as itr
+
 
 def prompting():
     print("Welcome to Passionfruits Smartgrid Project.")
@@ -10,6 +11,7 @@ def prompting():
     print("3. Greedy")
     print("4. Random to hillclimber")
     print("5. Random to Simmulated Annealing")
+    print("6. Random to Iterative")
     algorithm = int(input("Insert Here: "))
     district = int(input("Nice, which district do you want to run the algorithm on? Insert here: "))
     return algorithm, district
@@ -73,5 +75,11 @@ if __name__ == "__main__":
     if choice_list[0] == 5:
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
-        sc_1 = sc.SimulatedAnnealing(random_solution_district.district, own_costs = False)
+        sc_1 = sc.SimulatedAnnealing(random_solution_district.district, own_costs = True)
         sc_1.run(5000, True)
+
+    # --------------------------- Random to Iterative ---------------------
+    if choice_list[0] == 6:
+        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        random_solution_district.greedy_solution()
+        iterative = itr.Iterative(random_solution_district.district)

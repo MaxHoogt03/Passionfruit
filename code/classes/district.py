@@ -58,6 +58,18 @@ class District:
 
         return battery_list
     
+    def remove_batteries(self):
+        """
+        Clears self.battery_list
+        """
+        self.batteries.clear()
+
+    def add_battery(self, x, y, capacity):
+        """
+        Adds battery to self.battery_list
+        """
+        self.batteries.append(Battery(x, y, capacity))
+    
     def calculate_distance(point1, point2):
         """
         Calculates the distance between Two points on an x,y plane By adding the x and y difference.
@@ -68,7 +80,7 @@ class District:
         """
         return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
-    def calculate_shared_costs(self):
+    def calculate_shared_costs(self, battery_costs = [5000, 5000, 5000, 5000, 5000]):
         """
         calculates the total cost of laying the cables, but makes sure to account for the fact
         that houses can share a cable, so it subtracts the cables already laying there.
@@ -96,10 +108,14 @@ class District:
 
                     cable_storedval = cable
         self.shared_costs = 9*number_of_duplicates
+        
+        for battery in battery_costs:
+            self.shared_costs += battery
+        
         return int(self.shared_costs)
     
 
-    def calculate_own_costs(self):
+    def calculate_own_costs(self, battery_costs = [5000, 5000, 5000, 5000, 5000]):
         """
         calculates the cost of laying the cables in the district and returns it.
 
@@ -115,6 +131,9 @@ class District:
         for house in self.houses:
             # Formula, since every cable is 9 dollars.
             self.own_costs += house.count_cables() * 9
+
+        for battery in battery_costs:
+            self.own_costs += battery
 
         return self.own_costs
 
