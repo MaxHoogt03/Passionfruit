@@ -6,9 +6,9 @@ Relocates batteries with several options ranging from random to more sophisticat
 
 import csv
 import random
-from .house import House
-from .battery import Battery
-from .district import District
+from ..classes.house import House
+from ..classes.battery import Battery
+from ..classes.district import District
 
 class Relocation:
 
