@@ -73,7 +73,7 @@ if __name__ == "__main__":
     if choice_list[0] == 5:
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
-        sc_1 = sc.SimulatedAnnealing(random_solution_district.district, own_costs = False)
+        sc_1 = sc.SimulatedAnnealing(random_solution_district.district, own_costs = True)
         sc_1.run(5000, True)
 
     # --------------------------- Random to Iterative ---------------------

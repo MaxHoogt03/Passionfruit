@@ -86,3 +86,4 @@ class Iterative:
 
         print(self.district.calculate_own_costs())
         return self.district
+    
