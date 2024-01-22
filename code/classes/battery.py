@@ -35,23 +35,23 @@ class Battery:
         """
         return self.capacity
     
-    def retract_capacity(self, output):
+    def retract_capacity(self, house):
         """
         retracts capacity from battery by the output from a certain house.
 
         pre: output
         post: none
         """
-        self.capacity -= output
+        self.capacity -= house.get_output()
 
-    def add_capacity(self, output):
+    def add_capacity(self, house):
         """
         retracts capacity from battery by the output from a certain house.
 
         pre: output
         post: none
         """
-        self.capacity += output 
+        self.capacity += house.get_output()
     
 
     def add_house(self, house):
