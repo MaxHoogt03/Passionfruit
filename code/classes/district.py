@@ -237,8 +237,8 @@ class District:
         data = [
             {
                 "district": self._value,
-                "own-costs": self.calculate_own_costs(),
-                "shared-costs": self.calculate_shared_costs()
+                "costs-own": self.calculate_own_costs(),
+                "costs-shared": self.calculate_shared_costs()
             },
         ]
 

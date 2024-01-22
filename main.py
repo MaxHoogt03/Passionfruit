@@ -9,7 +9,7 @@ def prompting():
     print("2. Random to greedy")
     print("3. Greedy")
     print("4. Random to hillclimber")
-    print("5 Random to Simmulated Annealing")
+    print("5. Random to Simmulated Annealing")
     algorithm = int(input("Insert Here: "))
     district = int(input("Nice, which district do you want to run the algorithm on? Insert here: "))
     return algorithm, district
@@ -29,9 +29,10 @@ if __name__ == "__main__":
 
 
     # --------------------------- Heatmap -------------------------
-    districts[0].heatmap(3)
-    districts[1].heatmap()
-    districts[2].heatmap()
+    # districts[0].heatmap(3)
+    # districts[1].heatmap()
+    # districts[2].heatmap()
+
     # --------------------------- Random --------------------------
     if choice_list[0] == 1: 
         data = mr.Random_to_Random(districts[choice_list[1] - 1])

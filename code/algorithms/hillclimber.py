@@ -96,3 +96,5 @@ class Hillclimber:
             self.mutate_random_connection(new_district)
 
             self.check_solution(new_district)
+
+        return self.district
