@@ -112,7 +112,7 @@ class District:
         for battery in battery_costs:
             self.shared_costs += battery
         
-        return int(self.shared_costs) - int(self.calculate_own_costs())
+        return int(self.calculate_own_costs()) - int(self.shared_costs)
     
 
     def calculate_own_costs(self, battery_costs = [5000, 5000, 5000, 5000, 5000]):
