@@ -74,7 +74,6 @@ class RandomGreedy:
 
                 else:
                     # If no suitable battery is found for a house, set the retry flag and break the loop
-                    print("Retrying")
                     retry = True
                     break
         

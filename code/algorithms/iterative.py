@@ -83,6 +83,6 @@ class Iterative:
                 house.add_cable(f"{house.x - dist_x}, {house.y - i}")
 
     def run(self):
-        
+
         print(self.district.calculate_own_costs())
         return self.district
