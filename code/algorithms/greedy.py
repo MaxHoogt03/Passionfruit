@@ -85,9 +85,6 @@ class Greedy:
             # Adds all distances of the houses to their closest battery.
             total_min_distance += min_distance
 
-            # Retract the output from the house from the capacity of the battery.
-            battery.retract_capacity(house.get_output())
-
             # Adds to house to the current battery object.
             battery.add_house(house)
 

@@ -35,23 +35,23 @@ class Battery:
         """
         return self.capacity
     
-    def retract_capacity(self, output):
+    def retract_capacity(self, house):
         """
         retracts capacity from battery by the output from a certain house.
 
         pre: output
         post: none
         """
-        self.capacity -= output
+        self.capacity -= house.get_output()
 
-    def add_capacity(self, output):
+    def add_capacity(self, house):
         """
         retracts capacity from battery by the output from a certain house.
 
         pre: output
         post: none
         """
-        self.capacity += output 
+        self.capacity += house.get_output()
     
 
     def add_house(self, house):
@@ -64,7 +64,8 @@ class Battery:
         side-effects: appends to self.houses.
         """
         self.houses.append(house)
-    
+        self.retract_capacity(house)
+
     def remove_house(self, house):
         """
         Removes the house from list.
@@ -75,6 +76,7 @@ class Battery:
         side-effects: removes house from self.houses.
         """
         if house in self.houses:
+            self.add_capacity(house)
             self.houses.remove(house)
         else:
             print(f"House {house} not found in the list of houses for Battery {self}")

@@ -57,9 +57,6 @@ class Hillclimber:
             house_1.delete_cables()
             house_2.delete_cables()
 
-            battery_1.add_capacity(house_1.get_output())
-            battery_2.add_capacity(house_2.get_output())
-
             battery_1.remove_house(house_1)
             battery_2.remove_house(house_2)
 
@@ -68,10 +65,7 @@ class Hillclimber:
 
             battery_1.add_house(house_2)
             battery_2.add_house(house_1)
-
-            battery_1.retract_capacity(house_2.get_output())
-            battery_2.retract_capacity(house_1.get_output())
-
+            
     def check_solution(self, new_district):
         if self.own_costs:
             new_costs = new_district.calculate_own_costs()
