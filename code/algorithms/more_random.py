@@ -5,7 +5,7 @@ from ..classes.district import District
 
 class Random_to_Random:
     def __init__(self, district):
-        self.district = district
+        self.district = copy.deepcopy(district)
         self.random_solution()
         
     def add_cables(self, house, battery):
@@ -58,9 +58,6 @@ class Random_to_Random:
 
                     # Adds all distances of the houses to their closest battery.
                     total_min_distance += distance
-
-                    # Retract the output from the house from the capacity of the battery.
-                    battery.retract_capacity(house.get_output())
 
                     # Adds to house to the current battery object.
                     battery.add_house(house)

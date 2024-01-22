@@ -69,7 +69,6 @@ class RandomGreedy:
                     self.add_greedy_connection(house, closest_battery)
 
                     total_min_distance += smallest_distance
-                    closest_battery.retract_capacity(house.get_output())
                     closest_battery.add_house(house)
 
                 else:

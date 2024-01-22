@@ -64,7 +64,8 @@ class Battery:
         side-effects: appends to self.houses.
         """
         self.houses.append(house)
-    
+        self.retract_capacity(house)
+
     def remove_house(self, house):
         """
         Removes the house from list.
@@ -75,6 +76,7 @@ class Battery:
         side-effects: removes house from self.houses.
         """
         if house in self.houses:
+            self.add_capacity(house)
             self.houses.remove(house)
         else:
             print(f"House {house} not found in the list of houses for Battery {self}")
