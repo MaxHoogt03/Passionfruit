@@ -1,6 +1,7 @@
 from code.classes import battery, district, house
 import matplotlib.pyplot as plt
-from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, iterative as itr
+from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, battery_relocation as br, iterative as itr
+
 
 def prompting():
     print("Welcome to Passionfruits Smartgrid Project.")
@@ -53,6 +54,7 @@ if __name__ == "__main__":
 
     # --------------------------- Random to Greedy --------------------------
     if choice_list[0] == 2:
+        
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
         random_solution_district.district.plot_cables()
