@@ -65,3 +65,5 @@ class Random_to_Random:
                     # If no suitable battery is found for a house, set the retry flag and break the loop
                     retry = True
                     break
+                
+        return self.district_copy
