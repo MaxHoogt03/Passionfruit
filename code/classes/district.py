@@ -109,7 +109,7 @@ class District:
                     cable_storedval = cable
         self.shared_costs = 9*number_of_duplicates
         
-        return int(self.calculate_own_costs()) - int(self.shared_costs)
+        return int(self.calculate_own_costs(battery_costs)) - int(self.shared_costs)
     
 
     def calculate_own_costs(self, battery_costs = [5000, 5000, 5000, 5000, 5000]):
