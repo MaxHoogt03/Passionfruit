@@ -5,7 +5,7 @@ import seaborn as sns
 
 # File paths for the CSV files
 file_paths = [
-    'iterative.csv',
+    'heuristic_hill.csv',
     'hill_climber.csv',
     'random.csv',
     'simulated_annealing.csv',

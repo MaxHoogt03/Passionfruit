@@ -1,6 +1,6 @@
 from code.classes import battery, district, house
 import matplotlib.pyplot as plt
-from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, battery_relocation as br, iterative as itr
+from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, battery_relocation as br, heuristic_hill as hh
 
 
 def prompting():
@@ -11,7 +11,7 @@ def prompting():
     print("3. Greedy")
     print("4. Random to hillclimber")
     print("5. Random to Simmulated Annealing")
-    print("6. Random to Iterative")
+    print("6. Random to Heuristic Hill")
     algorithm = int(input("Insert Here: "))
     district = int(input("Nice, which district do you want to run the algorithm on? Insert here: "))
     return algorithm, district
@@ -78,8 +78,8 @@ if __name__ == "__main__":
         sc_1 = sc.SimulatedAnnealing(random_solution_district.district, own_costs = True)
         sc_1.run(2000, True)
 
-    # --------------------------- Random to Iterative ---------------------
+    # --------------------------- Random to Heuristic Hill ---------------------
     if choice_list[0] == 6:
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
-        iterative = itr.Iterative(random_solution_district.district, own_costs = True)
+        heuristic_hill = hh.Heuristic_Hill(random_solution_district.district, own_costs = True)
