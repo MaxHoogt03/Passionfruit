@@ -38,8 +38,8 @@ if __name__ == "__main__":
     # --------------------------- Random --------------------------
     if choice_list[0] == 1: 
         data = mr.Random_to_Random(districts[choice_list[1] - 1])
-        random_solution_district = data.random_solution()
-        print(random_solution_district.district.calculate_own_costs())
+        data.random_solution()
+        data.district.plot_cables()
         
         #Histogram to see how the random cable length is distributed
         # results = []

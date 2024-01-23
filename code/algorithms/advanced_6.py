@@ -10,7 +10,7 @@ class Advanced_6:
             'Imerse-II': {'capacity': 900, 'price': 1350},
             'Imerse-III': {'capacity': 1800, 'price': 1800}
         }
-        self.battery_costs = 0
+        self.battery_costs = []
 
     def random_battery_list(self, needed_capacity):
         """
@@ -30,7 +30,7 @@ class Advanced_6:
             random_price = self.battery_data[random_name]['price']
 
             capacity += random_capacity
-            self.battery_costs += random_price
+            self.battery_costs.append(random_price)
             battery_dict[f"{i}: {random_name}"] = {'capacity': random_capacity, 'price': random_price}
         
         return battery_dict
