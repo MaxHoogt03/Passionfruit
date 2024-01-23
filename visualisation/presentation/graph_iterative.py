@@ -32,8 +32,8 @@ for (name, dataframe), color in zip(datasets.items(), colors):
     sns.kdeplot(dataframe['solution'], shade=True, label=name, color=color)
 
 # Title and labels
-plt.title('Smoothed Histograms of Solution Values')
-plt.xlabel('Solution Value')
+plt.title('Smoothed Histograms of Costs')
+plt.xlabel('Costs')
 plt.ylabel('Density')
 
 # Legend and grid

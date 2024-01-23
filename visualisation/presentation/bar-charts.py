@@ -34,22 +34,22 @@ indices = np.arange(len(datasets))
 width = 0.35
 
 # Plot bars for average solutions
-solution_bars = ax1.bar(indices - width/2, average_solutions, width, label='Average Solution', color='b', alpha=0.6)
+solution_bars = ax1.bar(indices - width/2, average_solutions, width, label='Average Costs', color='b', alpha=0.6)
 
 # Labeling and visual adjustments for the first y-axis
 ax1.set_xlabel('Algorithm')
-ax1.set_ylabel('Average Solution', color='b')
+ax1.set_ylabel('Average Costs', color='b')
 ax1.tick_params(axis='y', labelcolor='b')
-ax1.set_title('Comparison of Average Solution Values and Times for Each Algorithm')
+ax1.set_title('Comparison of Average Costs and Duration for Each Algorithm')
 
 # Instantiate a second axes that shares the same x-axis
 ax2 = ax1.twinx()
 
 # Plot bars for average times
-time_bars = ax2.bar(indices + width/2, average_times, width, label='Average Time', color='r', alpha=0.6)
+time_bars = ax2.bar(indices + width/2, average_times, width, label='Average Duration', color='r', alpha=0.6)
 
 # Labeling and visual adjustments for the second y-axis
-ax2.set_ylabel('Average Time (seconds)', color='r')
+ax2.set_ylabel('Average Duration (seconds)', color='r')
 ax2.tick_params(axis='y', labelcolor='r')
 
 # Set the x-axis tick labels

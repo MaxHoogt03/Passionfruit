@@ -68,7 +68,7 @@ if __name__ == "__main__":
     if choice_list[0] == 4:
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
-        hillclimber_1 = hc.Hillclimber(random_solution_district.district, False)
+        hillclimber_1 = hc.Hillclimber(random_solution_district.district, True)
         hillclimber_1.run(10000, True)
 
     # --------------------------- Random to Simulated Annealing ---------------------
