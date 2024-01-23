@@ -17,7 +17,7 @@ class SimulatedAnnealing(Hillclimber):
         cooling_factor = 0.997  # You can adjust this value
         self.T = self.T * cooling_factor
 
-    def check_solution(self, new_district, own_costs = True):
+    def check_solution(self, new_district):
         if self.own_costs:
             new_costs = new_district.calculate_own_costs()
         else:
