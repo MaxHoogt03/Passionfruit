@@ -124,6 +124,11 @@ class Genetic:
         return mutation.district
 
     def generate_next_generation(self):
+        # Select the top parents to keep in the next generation
+        num_best_parents = int(len(self.population) * 0.8)  # Adjust the percentage as needed
+        best_parents = sorted(self.population, key=self.evaluate_fitness)[:num_best_parents]
+
+        # Generate children through crossover and mutation
         new_generation = []
 
         random.shuffle(self.population)
@@ -132,16 +137,14 @@ class Genetic:
             parent1 = self.population[i]
             parent2 = self.population[i + 1]
 
-            # print(f"Iteration: {int(i/2+1)}")
-
             # Apply crossover with a certain probability
             if random.random() < self.crossover_rate:
-                child1 = self.crossover_genes_uniform(parent1, parent2)
-                child1 = self.repair_capacity_constraint(child1)
+                child = self.crossover_genes_uniform(parent1, parent2)
+                child = self.repair_capacity_constraint(child)
 
-                while child1 == "Retry":
-                    child1 = self.crossover_genes_uniform(parent1, parent2)
-                    child1 = self.repair_capacity_constraint(child1)
+                while child == "Retry":
+                    child = self.crossover_genes_uniform(parent1, parent2)
+                    child = self.repair_capacity_constraint(child)
 
                 # Apply mutation with a certain probability
                 if random.random() < self.mutation_rate:
@@ -149,14 +152,15 @@ class Genetic:
 
                 new_generation.append(child)
 
-            else:
-                new_generation.extend([parent1, parent2])
+        # Combine the best parents and the new generation
+        combined_population = best_parents + new_generation
+        combined_population.sort(key=self.evaluate_fitness)
 
-        new_generation.sort(key=self.evaluate_fitness)
+        # Select the top individuals to form the next generation
+        self.population = combined_population[:len(self.population)]
 
-        self.population = new_generation
-        print(len(new_generation), new_generation[0].calculate_own_costs())
-        return new_generation
+        print(len(self.population), self.population[0].calculate_own_costs())
+        return self.population
     
     def run(self, generations):
         for i in range(generations):
