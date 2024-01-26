@@ -15,17 +15,17 @@ class Random_to_Random:
         dist_x, dist_y = house.x - battery.x, house.y - battery.y
 
         # Walking over the x and y differences
-        if dist_x < 0:
+        if dist_x <= 0:
             for i in range(abs(dist_x)):
                 house.add_cable(f"{house.x + i}, {house.y}")
-        elif dist_x > 0:
+        elif dist_x >= 0:
             for i in range(dist_x):
                 house.add_cable(f"{house.x - i}, {house.y}")
 
-        if dist_y < 0:
+        if dist_y <= 0:
             for i in range(abs(dist_y) + 1):
                 house.add_cable(f"{house.x - dist_x}, {house.y + i}")
-        elif dist_y > 0:
+        elif dist_y >= 0:
             for i in range(dist_y + 1):
                 house.add_cable(f"{house.x - dist_x}, {house.y - i}")
 

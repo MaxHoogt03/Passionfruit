@@ -26,19 +26,19 @@ class RandomGreedy:
         dist_y = y_house - y_battery
 
         # Adds the cables to the houses, by first walking over the x difference and then the y difference.
-        if dist_x < 0:
+        if dist_x <= 0:
             for i in range(abs(dist_x)):
                 house.add_cable(f"{x_house + i}, {y_house}")
 
-        elif dist_x > 0:
+        elif dist_x >= 0:
             for i in range(dist_x):
                 house.add_cable(f"{x_house - i}, {y_house}")
 
-        if dist_y < 0:
+        if dist_y <= 0:
             for i in range(abs(dist_y) + 1):
                 house.add_cable(f"{x_house - dist_x}, {y_house + i}")
 
-        elif dist_y > 0:
+        elif dist_y >= 0:
             for i in range(dist_y + 1):
                 house.add_cable(f"{x_house - dist_x}, {y_house - i}")
 

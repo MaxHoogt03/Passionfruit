@@ -146,6 +146,46 @@ class District:
 
         return self.houses
     
+    def find_corresponding_house(self, original_house):
+        """
+        Tries to find a house using coordinates
+        
+        pre: house object
+        post: house object or ValueError
+        """
+
+        x_to_find, y_to_find = original_house.x, original_house.y
+
+        # Iterate through houses in the district and find the corresponding one
+        for district_house in self.houses:
+            if district_house.x == x_to_find and district_house.y == y_to_find:
+                return district_house
+
+        # Handle the case where the corresponding house is not found
+        raise ValueError(f"Corresponding house not found for coordinates ({x_to_find}, {y_to_find})")
+    
+    def find_corresponding_battery(self, coordinates):
+        """
+        Tries to find a battery using coordinates
+        
+        pre: coordinates of battery
+        post: house object or ValueError
+        """
+
+        # Split the string into x and y values
+        x_str, y_str = coordinates.split(', ')
+
+        # Convert the string values to integers
+        x_to_find = int(x_str)
+        y_to_find = int(y_str)
+
+        for district_battery in self.batteries:
+            if district_battery.x == x_to_find and district_battery.y == y_to_find:
+                return district_battery
+            
+        # Handle the case where the corresponding house is not found
+        raise ValueError(f"Corresponding battery not found for coordinates ({x_to_find}, {y_to_find})")
+    
 
     def get_batteries(self):
         """
