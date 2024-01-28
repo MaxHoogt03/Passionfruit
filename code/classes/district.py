@@ -334,44 +334,52 @@ class District:
         checks if its better to just connect these houses and adjusts this if necessary.
         """
         list_of_batteries = self.get_batteries()
-        i = 0
         for battery in list_of_batteries:
             
             list_of_houses = battery.get_houses()
             battery_coordinates = battery.get_location()
-            for house in list_of_houses:
+            smallest_distance = None
+
+            for idx, house in enumerate(list_of_houses):
+                smallest_distance = None
+
+                for house2 in list_of_houses[idx + 1:]:
+                    
+                    if smallest_distance is None or self.calculate_distance(house, house2) < smallest_distance:
+                        smallest_distance = self.calculate_distance(house,house2)
+                        target_house = house2
                 
-                if i == 0:
-                    i +=1
-                    previous_house = house
+
+                if smallest_distance < abs(house.x - battery.x):
+                    house.cables = []
+                    x_house = house.x
+                    y_house = house.y
+                    x_target_house = target_house.x
+                    y_target_house = target_house.y
+                    dist_x = x_house - x_target_house
+                    dist_y = y_house - y_target_house
+
+                    # Adds the cables to the houses, by first walking over the x difference and then the y difference.
+                    if dist_x < 0:
+                        for i in range(abs(dist_x)):
+                            house.add_cable(f"{x_house + i}, {y_house}")
+
+                    elif dist_x > 0:
+                        for i in range(dist_x):
+                            house.add_cable(f"{x_house - i}, {y_house}")
+
+                    if dist_y < 0:
+                        for i in range(abs(dist_y) + 1):
+                            house.add_cable(f"{x_house - dist_x}, {y_house + i}")
+
+                    elif dist_y > 0:
+                        for i in range(dist_y + 1):
+                            house.add_cable(f"{x_house - dist_x}, {y_house - i}")
                 
                 else:
-                    if self.calculate_distance(previous_house, house) < abs(previous_house.x - battery.x):
-                        previous_house.cables = []
-                        x_previous_house = previous_house.x
-                        y_previous_house = previous_house.y
-                        x_house = house.x
-                        y_house = house.y
-                        dist_x = x_previous_house - x_house
-                        dist_y = y_previous_house - y_house
+                    continue
+                    
+                
 
-                        # Adds the cables to the houses, by first walking over the x difference and then the y difference.
-                        if dist_x < 0:
-                            for i in range(abs(dist_x)):
-                                previous_house.add_cable(f"{x_previous_house + i}, {y_previous_house}")
-
-                        elif dist_x > 0:
-                            for i in range(dist_x):
-                                previous_house.add_cable(f"{x_previous_house - i}, {y_previous_house}")
-
-                        if dist_y < 0:
-                            for i in range(abs(dist_y) + 1):
-                                previous_house.add_cable(f"{x_previous_house - dist_x}, {y_previous_house + i}")
-
-                        elif dist_y > 0:
-                            for i in range(dist_y + 1):
-                                previous_house.add_cable(f"{x_previous_house - dist_x}, {y_previous_house - i}")
-                        #notes (for myself), this part of the code just checks for the next house in the list but not the rest in the connection. 
-                        #hence finish later.
-
-
+                     
+                        
