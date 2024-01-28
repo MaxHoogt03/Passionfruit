@@ -79,6 +79,16 @@ class District:
 
         """
         return abs(point1.x - point2.x) + abs(point1.y - point2.y)
+    
+    def calculate_distance2(self,point1, point2):
+        """
+        Calculates the distance between Two points on an x,y plane By adding the x and y difference.
+        
+        pre: int
+        post: int
+
+        """
+        return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
     def calculate_shared_costs(self, battery_costs = [5000, 5000, 5000, 5000, 5000]):
         """
@@ -345,12 +355,12 @@ class District:
 
                 for house2 in list_of_houses[idx + 1:]:
                     
-                    if smallest_distance is None or self.calculate_distance(house, house2) < smallest_distance:
-                        smallest_distance = self.calculate_distance(house,house2)
+                    if smallest_distance is None or self.calculate_distance2(house, house2) < smallest_distance:
+                        smallest_distance = self.calculate_distance2(house,house2)
                         target_house = house2
                 
 
-                if smallest_distance < abs(house.x - battery.x):
+                if smallest_distance is not None and smallest_distance < abs(house.x - battery.x):
                     house.cables = []
                     x_house = house.x
                     y_house = house.y
