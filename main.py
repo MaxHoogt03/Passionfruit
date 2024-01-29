@@ -71,6 +71,7 @@ if __name__ == "__main__":
         
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
+        solution_district.district.reform()
         solution_district.district.plot_cables()
         solution_district.district.output()
 
