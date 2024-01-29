@@ -362,16 +362,16 @@ class District:
             battery_coordinates = battery.get_location()
 
             for idx, house in enumerate(list_of_houses):
-                smallest_distance = None
-
+                smallest_distance = self.calculate_distance2(house, battery)
+                target_house = None
                 for house2 in list_of_houses[idx + 1:]:
                     
-                    if smallest_distance is None or self.calculate_distance2(house, house2) < smallest_distance:
+                    if self.calculate_distance2(house, house2) < smallest_distance:
                         smallest_distance = self.calculate_distance2(house,house2)
                         target_house = house2
                 
 
-                if smallest_distance is not None and smallest_distance < abs(house.x - battery.x):
+                if target_house is not None:
                     house.cables = []
                     x_house = house.x
                     y_house = house.y
@@ -381,19 +381,19 @@ class District:
                     dist_y = y_house - y_target_house
 
                     # Adds the cables to the houses, by first walking over the x difference and then the y difference.
-                    if dist_x < 0:
+                    if dist_x <= 0:
                         for i in range(abs(dist_x)):
                             house.add_cable(f"{x_house + i}, {y_house}")
 
-                    elif dist_x > 0:
+                    elif dist_x >= 0:
                         for i in range(dist_x):
                             house.add_cable(f"{x_house - i}, {y_house}")
 
-                    if dist_y < 0:
+                    if dist_y <= 0:
                         for i in range(abs(dist_y) + 1):
                             house.add_cable(f"{x_house - dist_x}, {y_house + i}")
 
-                    elif dist_y > 0:
+                    elif dist_y >= 0:
                         for i in range(dist_y + 1):
                             house.add_cable(f"{x_house - dist_x}, {y_house - i}")
                 

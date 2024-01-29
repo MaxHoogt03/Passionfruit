@@ -62,18 +62,19 @@ if __name__ == "__main__":
 
     # --------------------------- Random --------------------------
     if choice_list[0] == 1: 
-        data = mr.Random_to_Random(districts[choice_list[1] - 1])
-        data.random_solution()
-        data.district.plot_cables()
+        solution_district = mr.Random_to_Random(districts[choice_list[1] - 1])
+        solution_district.random_solution()
+        solution_district.district.plot_cables()
 
     # --------------------------- RandomGreedy --------------------------
     if choice_list[0] == 2:
         
-        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
-        random_solution_district.greedy_solution()
-        random_solution_district.district.reform()
-        random_solution_district.district.plot_cables()
-        random_solution_district.district.output()
+        solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        solution_district.greedy_solution()
+        solution_district.district.reform()
+        solution_district.district.plot_cables()
+        solution_district.district.output()
+
 
     # --------------------------- Greedy --------------------------
     if choice_list[0] == 3:
@@ -85,23 +86,23 @@ if __name__ == "__main__":
 
     # --------------------------- Random to Hillclimber -----------------------------
     if choice_list[0] == 4:
-        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
-        random_solution_district.greedy_solution()
-        hillclimber_1 = hc.Hillclimber(random_solution_district.district, True)
+        solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        solution_district.greedy_solution()
+        hillclimber_1 = hc.Hillclimber(solution_district.district, True)
         hillclimber_1.run(5000, True)
 
     # --------------------------- Random to Simulated Annealing ---------------------
     if choice_list[0] == 5:
-        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
-        random_solution_district.greedy_solution()
-        sc_1 = sc.SimulatedAnnealing(random_solution_district.district, own_costs = True)
+        solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        solution_district.greedy_solution()
+        sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = True)
         sc_1.run(5000, True)
 
     # --------------------------- Random to Heuristic Hill ---------------------
     if choice_list[0] == 6:
-        random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
-        random_solution_district.greedy_solution()
-        heuristic_hill = hh.Heuristic_Hill(random_solution_district.district, own_costs = True)
+        solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
+        solution_district.greedy_solution()
+        heuristic_hill = hh.Heuristic_Hill(solution_district.district, own_costs = True)
     
     Printing_costs(choice_list[2])
 
