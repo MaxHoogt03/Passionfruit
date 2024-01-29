@@ -40,43 +40,36 @@ if __name__ == "__main__":
         data = mr.Random_to_Random(districts[choice_list[1] - 1])
         data.random_solution()
         data.district.plot_cables()
-        
-        #Histogram to see how the random cable length is distributed
-        # results = []
-        # for i in range(0):
-        #     result = data.random_solution()
-        #     results.append(result)
-        # plt.hist(results, bins=20)
-        # plt.title('Histogram of Results')
-        # plt.xlabel('Result Value')
-        # plt.ylabel('Frequency')
-        # plt.savefig('plot.png')
 
-    # --------------------------- Random to Greedy --------------------------
+    # --------------------------- RandomGreedy --------------------------
     if choice_list[0] == 2:
         
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
         random_solution_district.district.plot_cables()
         random_solution_district.district.output()
+
     # --------------------------- Greedy --------------------------
     if choice_list[0] == 3:
-        gr = gr.Greedy(districts[choice_list[1] - 1])
-        gr.greedy_solution()
+        
+        print("No solution possible!")
+        
+        #gr = gr.Greedy(districts[choice_list[1] - 1])
+        #gr.greedy_solution()
 
     # --------------------------- Random to Hillclimber -----------------------------
     if choice_list[0] == 4:
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
         hillclimber_1 = hc.Hillclimber(random_solution_district.district, True)
-        hillclimber_1.run(10000, True)
+        hillclimber_1.run(5000, True)
 
     # --------------------------- Random to Simulated Annealing ---------------------
     if choice_list[0] == 5:
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
         sc_1 = sc.SimulatedAnnealing(random_solution_district.district, own_costs = True)
-        sc_1.run(2000, True)
+        sc_1.run(5000, True)
 
     # --------------------------- Random to Heuristic Hill ---------------------
     if choice_list[0] == 6:
