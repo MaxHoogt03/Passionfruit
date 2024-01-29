@@ -1,23 +1,48 @@
 from code.classes import battery, district, house
 import matplotlib.pyplot as plt
+import json
 from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, battery_relocation as br, heuristic_hill as hh
 
 
 def prompting():
     print("Welcome to Passionfruits Smartgrid Project.")
-    print("Which algorithm or code would you like to run? Press the number you would like to run and hit enter.")
+    print("Which algorithm or code would you like to run? Press the number you would like to run and hit enter.\n")
     print("1. Random")
     print("2. Random to greedy")
     print("3. Greedy")
     print("4. Random to hillclimber")
     print("5. Random to Simmulated Annealing")
-    print("6. Random to Heuristic Hill")
+    print("6. Random to Heuristic Hill\n")
     algorithm = int(input("Insert Here: "))
+    print()
     district = int(input("Nice, which district do you want to run the algorithm on? Insert here: "))
-    return algorithm, district
+    print()
+    print("Okay and what costs would you like to see?\n")
+    print("1. Own costs")
+    print("2. Shared costs")
+    print("3. Both\n")
+    cost_scheme = int(input("Insert the number here: "))
+    print()
+    return algorithm, district, cost_scheme
 
 
+def Printing_costs(costcategory):
+    with open("output.json", "r") as file:
+        data = json.load(file)
 
+    own_costs = data[0]["costs-own"]
+    shared_costs = data[0]["costs-shared"]
+
+    if costcategory == 1:
+        print(f"Own Costs: {own_costs}")
+    
+    elif costcategory == 2:
+        print(f"Shared Costs: {shared_costs}")
+    
+    elif costcategory == 3:
+        print(f"Own Costs: {own_costs}")
+        print(f"Shared Costs: {shared_costs}")
+        
 
 
 
@@ -77,3 +102,6 @@ if __name__ == "__main__":
         random_solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         random_solution_district.greedy_solution()
         heuristic_hill = hh.Heuristic_Hill(random_solution_district.district, own_costs = True)
+    
+    Printing_costs(choice_list[2])
+
