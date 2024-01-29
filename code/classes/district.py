@@ -348,7 +348,6 @@ class District:
             
             list_of_houses = battery.get_houses()
             battery_coordinates = battery.get_location()
-            smallest_distance = None
 
             for idx, house in enumerate(list_of_houses):
                 smallest_distance = None
