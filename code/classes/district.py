@@ -218,22 +218,30 @@ class District:
         """
 
         colors = [
-        '#7fbfde',
-        '#97d07d',
-        '#fc8d8d',
-        '#fecb67',
-        '#d1a3d9',
-        '#ff7f7f',
-        '#2e9bda',
-        '#44b030',
+            '#7fbfde',  # light blue
+            '#97d07d',  # light green
+            '#fc8d8d',  # light red
+            '#fecb67',  # light orange
+            '#d1a3d9',  # light purple
         ]
-        color_index = 0
+
+        # Vibrant colors for the batteries
+        vibrant_colors = [
+            '#0077b3',  # vibrant blue
+            '#2ca02c',  # vibrant green
+            '#d62728',  # vibrant red
+            '#ff7f0e',  # vibrant orange
+            '#8c56b3',  # vibrant purple
+        ]
+
+        # Create a dictionary mapping battery coordinates to colors
+        battery_color_map = {}
+        for index, battery in enumerate(self.batteries):
+            battery_coord = (battery.x, battery.y)
+            battery_color_map[battery_coord] = colors[index]
 
         for house in self.houses:
-            # Need to store the coordinates in lists, since they are stored as strings.
             random_offset = random.uniform(-1, 1)
-            cable_and_house_color = colors[color_index % len(colors)]
-            color_index += 1
 
             x_coords = []
             y_coords = []
@@ -245,19 +253,23 @@ class District:
                 y = int(y)
                 if coord != house.get_cables()[-1]:
                     x = int(x) + random_offset  # Apply the random offset to x coordinate
-                    y = int(y) + random_offset # Apply the random offset to y coordinate
+                    y = int(y) + random_offset  # Apply the random offset to y coordinate
                 x_coords.append(x)
                 y_coords.append(y)
 
-            # Plot the Lines
+            # Get the color based on the last cable's coordinate (which is the battery's coordinate)
+            last_cable_coord = (x_coords[-1], y_coords[-1])
+            cable_and_house_color = battery_color_map.get(last_cable_coord, 'black')  # Default to black if not found
+
+            # Plot the cables
             plt.plot(x_coords, y_coords, color=cable_and_house_color, linewidth=1)
 
-            # Plots the houses (The fist cable can be used for location of the house since the cable starts at the house.)
+            # Plots the houses
             plt.plot(x_coords[0], y_coords[0]+1, marker='^', color=cable_and_house_color, markersize=10)
 
-        # Plot the batteries
-        for battery in self.batteries:
-            plt.plot(battery.x, battery.y, marker='s', color='red', markersize=10)
+        # Plot the batteries with vibrant colors
+        for index, battery in enumerate(self.batteries):
+            plt.plot(battery.x, battery.y, marker='s', color=vibrant_colors[index], markersize=10)
 
         plt.xlabel('X Coordinate')
         plt.ylabel('Y Coordinate')
