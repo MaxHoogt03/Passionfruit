@@ -134,9 +134,9 @@ if __name__ == "__main__":
         solution_district.greedy_solution()
 
         if len(choice_list) == 4:
-            sollution = heuristic_hill = hh.Heuristic_Hill(solution_district.district, own_costs = choice_list[3])
+            sollution = hh.Heuristic_Hill(solution_district.district, own_costs = choice_list[3])
         else:
-            sollution = heuristic_hill = hh.Heuristic_Hill(solution_district.district, own_costs = False)
+            sollution = hh.Heuristic_Hill(solution_district.district, own_costs = False)
 
         if choice_list[3] == 1:
             sollution.reform()
