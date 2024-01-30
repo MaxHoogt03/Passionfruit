@@ -39,10 +39,10 @@ def Printing_costs(reform_choice, costcategory = 3):
     own_costs = data[0]["costs-own"]
     shared_costs = data[0]["costs-shared"]
 
-    if costcategory == 1 and reform_choice == 2:
+    if costcategory == 0 and reform_choice == 2:
         print(f"Own Costs: {own_costs}")
     
-    elif costcategory == 2:
+    elif costcategory == 1:
         print(f"Shared Costs: {shared_costs}")
 
     elif reform_choice == 1:
@@ -74,6 +74,7 @@ if __name__ == "__main__":
         if choice_list[2] == 1:
             solution_district.district.reform()  
         solution_district.district.plot_cables()
+        solution_district.district.output()
 
     # --------------------------- RandomGreedy --------------------------
     if choice_list[0] == 2:
@@ -81,7 +82,7 @@ if __name__ == "__main__":
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
 
-        if choice_list[2] == 2:
+        if choice_list[2] == 1:
             solution_district.district.reform()
 
         solution_district.district.plot_cables()
@@ -141,7 +142,7 @@ if __name__ == "__main__":
 
         solllution = sollution.run()
 
-        if choice_list[3] == 1:
+        if choice_list[2] == 1:
             solllution.reform()
         solllution.plot_cables()
         solllution.output()
