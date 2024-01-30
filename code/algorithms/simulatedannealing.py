@@ -12,13 +12,12 @@ class SimulatedAnnealing(Hillclimber):
         self.T = temperature
 
     def update_temperature(self):
-        if self.iterations < 2000:
+        if self.iterations < 5000:
             self.T = 0
-        elif self.iterations < 5000:
-            cooling_factor = 30 / 3000
-            self.T = 30 - cooling_factor * (self.iterations - 2000)
         else:
-            self.T = 0
+            cooling_factor = 0.999  # You can adjust this value
+            self.T = 30 * cooling_factor**(self.iterations - 5000)
+
 
 
     def check_solution(self, new_district):
