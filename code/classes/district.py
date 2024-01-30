@@ -218,46 +218,53 @@ class District:
         """
 
         colors = [
-        '#7fbfde',
-        '#97d07d',
-        '#fc8d8d',
-        '#fecb67',
-        '#d1a3d9',
-        '#ff7f7f',
-        '#2e9bda',
-        '#44b030',
+            '#7fbfde',  # light blue
+            '#97d07d',  # light green
+            '#fc8d8d',  # light red
+            '#fecb67',  # light orange
+            '#d1a3d9',  # light purple
         ]
-        color_index = 0
 
-        for house in self.houses:
-            # Need to store the coordinates in lists, since they are stored as strings.
-            random_offset = random.uniform(-1, 1)
-            cable_and_house_color = colors[color_index % len(colors)]
-            color_index += 1
+        # Vibrant colors for the batteries
+        vibrant_colors = [
+            '#0077b3',  # vibrant blue
+            '#2ca02c',  # vibrant green
+            '#d62728',  # vibrant red
+            '#ff7f0e',  # vibrant orange
+            '#8c56b3',  # vibrant purple
+        ]
 
-            x_coords = []
-            y_coords = []
+        # Iterate over each battery and its corresponding houses
+        for index, battery in enumerate(self.batteries):
+            house_list = battery.get_houses()
+            battery_color = colors[index]
 
-            # Converts coordinate strings to int and adds them to their list.
-            for coord in house.get_cables():
-                x, y = coord.split(',')
-                x = int(x)
-                y = int(y)
-                if coord != house.get_cables()[-1]:
-                    x = int(x) + random_offset  # Apply the random offset to x coordinate
-                    y = int(y) + random_offset # Apply the random offset to y coordinate
-                x_coords.append(x)
-                y_coords.append(y)
+            for house in house_list:
+                random_offset = random.uniform(-1, 1)
 
-            # Plot the Lines
-            plt.plot(x_coords, y_coords, color=cable_and_house_color, linewidth=1)
+                x_coords = []
+                y_coords = []
 
-            # Plots the houses (The fist cable can be used for location of the house since the cable starts at the house.)
-            plt.plot(x_coords[0], y_coords[0]+1, marker='^', color=cable_and_house_color, markersize=10)
+                # Converts coordinate strings to int and adds them to their list.
+                for coord in house.get_cables():
+                    x, y = coord.split(',')
+                    x = int(x)
+                    y = int(y)
+                    if coord != house.get_cables()[-1]:
+                        x = int(x) + random_offset  # Apply the random offset to x coordinate
+                        y = int(y) + random_offset  # Apply the random offset to y coordinate
+                    x_coords.append(x)
+                    y_coords.append(y)
 
-        # Plot the batteries
-        for battery in self.batteries:
-            plt.plot(battery.x, battery.y, marker='s', color='red', markersize=10)
+                # Plot the cables
+                plt.plot(x_coords, y_coords, color=battery_color, linewidth=1)
+
+                # Plots the houses
+                plt.plot(x_coords[0], y_coords[0]+1, marker='^', color=battery_color, markersize=10)
+
+        # Plot the batteries with vibrant colors
+        for index, battery in enumerate(self.batteries):
+            plt.plot(battery.x, battery.y, marker='s', color=vibrant_colors[index], markersize=10)
 
         plt.xlabel('X Coordinate')
         plt.ylabel('Y Coordinate')
@@ -350,16 +357,16 @@ class District:
             battery_coordinates = battery.get_location()
 
             for idx, house in enumerate(list_of_houses):
-                smallest_distance = None
-
+                smallest_distance = self.calculate_distance2(house, battery)
+                target_house = None
                 for house2 in list_of_houses[idx + 1:]:
                     
-                    if smallest_distance is None or self.calculate_distance2(house, house2) < smallest_distance:
+                    if self.calculate_distance2(house, house2) < smallest_distance:
                         smallest_distance = self.calculate_distance2(house,house2)
                         target_house = house2
                 
 
-                if smallest_distance is not None and smallest_distance < abs(house.x - battery.x):
+                if target_house is not None:
                     house.cables = []
                     x_house = house.x
                     y_house = house.y
@@ -369,19 +376,19 @@ class District:
                     dist_y = y_house - y_target_house
 
                     # Adds the cables to the houses, by first walking over the x difference and then the y difference.
-                    if dist_x < 0:
+                    if dist_x <= 0:
                         for i in range(abs(dist_x)):
                             house.add_cable(f"{x_house + i}, {y_house}")
 
-                    elif dist_x > 0:
+                    elif dist_x >= 0:
                         for i in range(dist_x):
                             house.add_cable(f"{x_house - i}, {y_house}")
 
-                    if dist_y < 0:
+                    if dist_y <= 0:
                         for i in range(abs(dist_y) + 1):
                             house.add_cable(f"{x_house - dist_x}, {y_house + i}")
 
-                    elif dist_y > 0:
+                    elif dist_y >= 0:
                         for i in range(dist_y + 1):
                             house.add_cable(f"{x_house - dist_x}, {y_house - i}")
                 
