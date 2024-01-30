@@ -70,11 +70,11 @@ if __name__ == "__main__":
     # --------------------------- Random --------------------------
     if choice_list[0] == 1: 
         solution_district = mr.Random_to_Random(districts[choice_list[1] - 1])
-        solution_district.random_solution()
+        solution_district = solution_district.random_solution()
         if choice_list[2] == 1:
-            solution_district.district.reform()  
-        solution_district.district.plot_cables()
-        solution_district.district.output()
+            solution_district.reform()  
+        solution_district.plot_cables()
+        solution_district.output()
 
     # --------------------------- RandomGreedy --------------------------
     if choice_list[0] == 2:
