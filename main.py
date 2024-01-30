@@ -25,8 +25,7 @@ def prompting():
         print("Okay and what costs would you like to see?\n")
         print("1. Own costs")
         print("2. Shared costs")
-        print("3. Both\n")
-        cost_scheme = int(input("Insert the number here: "))
+        cost_scheme = bool(int(input("Insert the number here: ")) - 1)
         print()
         return algorithm, district, reform_choice, cost_scheme
     return algorithm, district, reform_choice
@@ -43,12 +42,13 @@ def Printing_costs(reform_choice, costcategory = 3):
     if costcategory == 1 and reform_choice == 2:
         print(f"Own Costs: {own_costs}")
     
-    elif costcategory == 2 or reform_choice == 1:
+    elif costcategory == 2:
         print(f"Shared Costs: {shared_costs}")
+
+    elif reform_choice == 1:
+        print(f"Reformed Shared Costs: {shared_costs}")
     
-    elif costcategory == 3:
-        print(f"Own Costs: {own_costs}")
-        print(f"Shared Costs: {shared_costs}")
+    
         
 
 
@@ -72,7 +72,8 @@ if __name__ == "__main__":
         solution_district = mr.Random_to_Random(districts[choice_list[1] - 1])
         solution_district.random_solution()
         if choice_list[2] == 1:
-            solution_district.district.plot_cables()
+            solution_district.district.reform()  
+        solution_district.district.plot_cables()
 
     # --------------------------- RandomGreedy --------------------------
     if choice_list[0] == 2:
@@ -99,7 +100,12 @@ if __name__ == "__main__":
     if choice_list[0] == 4:
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
-        hillclimber_1 = hc.Hillclimber(solution_district.district, True)
+
+        if len(choice_list) == 4:
+            hillclimber_1 = hc.Hillclimber(solution_district.district, own_costs = choice_list[3])
+        else:
+            hillclimber_1 = hc.Hillclimber(solution_district.district, own_costs = False)
+
         sollution = hillclimber_1.run(5000, True)
         if choice_list[2] == 1:
             sollution.reform()
@@ -110,8 +116,13 @@ if __name__ == "__main__":
     if choice_list[0] == 5:
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
-        sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = False)
-        sollution = sc_1.run(5000, True)
+
+        if len(choice_list) == 4:
+            sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = choice_list[3])
+        else:
+            sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = False)
+
+        sollution = sc_1.run(10000, True)
         if choice_list[2] == 1:
             sollution.reform()
         sollution.plot_cables()
@@ -121,7 +132,12 @@ if __name__ == "__main__":
     if choice_list[0] == 6:
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
-        sollution = heuristic_hill = hh.Heuristic_Hill(solution_district.district, own_costs = True)
+
+        if len(choice_list) == 4:
+            sollution = hh.Heuristic_Hill(solution_district.district, own_costs = choice_list[3])
+        else:
+            sollution = hh.Heuristic_Hill(solution_district.district, own_costs = False)
+
         if choice_list[3] == 1:
             sollution.reform()
         sollution.plot_cables()
