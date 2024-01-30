@@ -17,26 +17,33 @@ def prompting():
     print()
     district = int(input("Nice, which district do you want to run the algorithm on? Insert here: "))
     print()
-    print("Okay and what costs would you like to see?\n")
-    print("1. Own costs")
-    print("2. Shared costs")
-    print("3. Both\n")
-    cost_scheme = int(input("Insert the number here: "))
-    print()
-    return algorithm, district, cost_scheme
+    print("Would you like to reform the districts to connect houses to each other?")
+    print("1. YES")
+    print("2. NO\n")
+    reform_choice = int(input("Type the number here: "))
+    if reform_choice == 2:
+        print("Okay and what costs would you like to see?\n")
+        print("1. Own costs")
+        print("2. Shared costs")
+        print("3. Both\n")
+        cost_scheme = int(input("Insert the number here: "))
+        print()
+        return algorithm, district, reform_choice, cost_scheme
+    return algorithm, district, reform_choice
+    
 
 
-def Printing_costs(costcategory):
+def Printing_costs(reform_choice, costcategory = 3):
     with open("output.json", "r") as file:
         data = json.load(file)
 
     own_costs = data[0]["costs-own"]
     shared_costs = data[0]["costs-shared"]
 
-    if costcategory == 1:
+    if costcategory == 1 and reform_choice == 2:
         print(f"Own Costs: {own_costs}")
     
-    elif costcategory == 2:
+    elif costcategory == 2 or reform_choice == 1:
         print(f"Shared Costs: {shared_costs}")
     
     elif costcategory == 3:
@@ -64,14 +71,18 @@ if __name__ == "__main__":
     if choice_list[0] == 1: 
         solution_district = mr.Random_to_Random(districts[choice_list[1] - 1])
         solution_district.random_solution()
-        solution_district.district.plot_cables()
+        if choice_list[2] == 1:
+            solution_district.district.plot_cables()
 
     # --------------------------- RandomGreedy --------------------------
     if choice_list[0] == 2:
         
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
-        solution_district.district.reform()
+
+        if choice_list[2] == 2:
+            solution_district.district.reform()
+
         solution_district.district.plot_cables()
         solution_district.district.output()
 
@@ -89,20 +100,35 @@ if __name__ == "__main__":
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
         hillclimber_1 = hc.Hillclimber(solution_district.district, True)
-        hillclimber_1.run(5000, True)
+        sollution = hillclimber_1.run(5000, True)
+        if choice_list[2] == 1:
+            sollution.reform()
+        sollution.plot_cables()
+        sollution.output()
 
     # --------------------------- Random to Simulated Annealing ---------------------
     if choice_list[0] == 5:
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
-        sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = True)
-        sc_1.run(5000, True)
+        sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = False)
+        sollution = sc_1.run(5000, True)
+        if choice_list[2] == 1:
+            sollution.reform()
+        sollution.plot_cables()
+        sollution.output()
 
     # --------------------------- Random to Heuristic Hill ---------------------
     if choice_list[0] == 6:
         solution_district = rtg.RandomGreedy(districts[choice_list[1] - 1])
         solution_district.greedy_solution()
-        heuristic_hill = hh.Heuristic_Hill(solution_district.district, own_costs = True)
+        sollution = heuristic_hill = hh.Heuristic_Hill(solution_district.district, own_costs = True)
+        if choice_list[3] == 1:
+            sollution.reform()
+        sollution.plot_cables()
+        sollution.output()
     
-    Printing_costs(choice_list[2])
+    if len(choice_list) == 3:
+        Printing_costs(choice_list[2])
+    else:
+        Printing_costs(choice_list[2], choice_list[3])
 

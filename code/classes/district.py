@@ -250,9 +250,9 @@ class District:
                     x, y = coord.split(',')
                     x = int(x)
                     y = int(y)
-                    if coord != house.get_cables()[-1]:
-                        x = int(x) + random_offset  # Apply the random offset to x coordinate
-                        y = int(y) + random_offset  # Apply the random offset to y coordinate
+                    #if coord != house.get_cables()[-1]:
+                        #x = int(x) + random_offset  # Apply the random offset to x coordinate
+                        #y = int(y) + random_offset  # Apply the random offset to y coordinate
                     x_coords.append(x)
                     y_coords.append(y)
 
@@ -394,6 +394,7 @@ class District:
                 
                 else:
                     continue
+        
                     
                 
 
