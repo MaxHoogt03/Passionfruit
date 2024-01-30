@@ -20,5 +20,5 @@ Bij het runnen van main.py gebeurd er het volgende:
 3. Na het district gekozen te hebben kan je kiezen of je een gereformeerde district wil. Gereformeerd betekend dat de huizen die naar dezelfde batterij gaan, aan elkaar worden aangesloten mits dit voordeliger is.
 
 4. Afhankelijk wat je bij 3 hebt gekozen kan je eventueel ook nog geprompt worden of je de shared costs of own costs wil zien. Own costs zijn de kosten waarbij je ervanuit gaat dat elke huis zijn eigen kabels heeft naar de batterij en Shared costs haalt dubbel getelde kabels die naar dezelfde batterij gaan van de kosten af omdat deze al "shared" zijn dus aangesloten.  
-## to my haters
-They don't know me son
+## Experiment
+Open experiment_scripts.py en daarin staat hoe we bij de uitkomsten zijn gekomen van het experiment.

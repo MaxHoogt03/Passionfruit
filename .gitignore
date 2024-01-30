@@ -161,3 +161,6 @@ cython_debug/
 
 # Own main file
 max_main.py
+
+
+.gitignore
