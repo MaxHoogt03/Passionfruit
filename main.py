@@ -134,14 +134,17 @@ if __name__ == "__main__":
         solution_district.greedy_solution()
 
         if len(choice_list) == 4:
-            sollution = hh.Heuristic_Hill(solution_district.district, own_costs = choice_list[3])
+            own_costs = choice_list[3]
+            sollution = hh.Heuristic_Hill(solution_district.district, own_costs)
         else:
             sollution = hh.Heuristic_Hill(solution_district.district, own_costs = False)
 
+        solllution = sollution.run()
+
         if choice_list[3] == 1:
-            sollution.reform()
-        sollution.plot_cables()
-        sollution.output()
+            solllution.reform()
+        solllution.plot_cables()
+        solllution.output()
     
     if len(choice_list) == 3:
         Printing_costs(choice_list[2])

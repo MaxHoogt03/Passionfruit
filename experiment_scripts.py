@@ -129,4 +129,30 @@ for i in range(iterations):
     print(f"Iteration {i+1}")
 
 """
+"""
+Remove quotations for heuristic hillclimber
 
+    # Record start time
+    start_time = time.time()
+
+    # Create RandomGreedy instance and obtain initial solution
+    instance = rtg.RandomGreedy(district_1)
+    initial_solution = instance.greedy_solution()
+
+    instance = hh.Heuristic_Hill(initial_solution)
+    solution = instance.run()
+
+
+    # Record end time
+    end_time = time.time()
+
+    # Open CSV file for writing (or create if it doesn't exist)
+    with open(csv_file_path, 'a', newline='') as csvfile:
+        # Create CSV writer
+        csv_writer = csv.writer(csvfile)
+
+        # Write solution and time in a single row
+        csv_writer.writerow([solution.calculate_own_costs(), end_time - start_time])
+
+    print(f"Iteration {i+1}")
+"""

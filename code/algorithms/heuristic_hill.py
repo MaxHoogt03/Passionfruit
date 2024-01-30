@@ -21,16 +21,7 @@ class Heuristic_Hill:
             - The costs based on the 'own_costs' boolean
         """
         self.district = copy.deepcopy(district)
-        self.last_130_houses = Queue()
-        for i in range(150):
-            self.furthest_house()
-            self.replace_battery()
-        self.costs = own_costs
-        if own_costs:
-            self.costs = self.district.calculate_own_costs()
-        else:
-            self.costs = self.district.calculate_shared_costs()
-        self.run()
+        self.own_costs = own_costs
 
     def furthest_house(self):
         """
@@ -133,6 +124,13 @@ class Heuristic_Hill:
                 house.add_cable(f"{house.x - dist_x}, {house.y - i}")
 
     def run(self):
-        
-        return self.costs
-    
+        self.last_130_houses = Queue()
+        for i in range(150):
+            self.furthest_house()
+            self.replace_battery()
+        if self.own_costs:
+            self.costs = self.district.calculate_own_costs()
+        else:
+            self.costs = self.district.calculate_shared_costs()
+
+        return self.district
