@@ -42,7 +42,7 @@ Bij het runnen van main.py gebeurd er het volgende:
 In de command line word er een uitkomst geprint. Als je reformed hebt gekozen bij stap 3 kan de waarde van Shared cost verschillen van de laatste iteratie in de commandline. Dit komt omdat het reformeren bij de laatste iteratie word uitgevoerd. Het herleggen van de kabels geeft dan een ander resultaat.
 
 De plot voor de laatste iteratie van het gerunde algortime is te vinden in: <br> 
-visualisation -> gridcables -> plot1.png
+visualisation -> gridcables -> plot1.png of plot2.png of plot3.png (dit hangt ervanaf welk district je hebt gerund. Als je district 1 runt zit hij in plot1 etc.)
 
 ## Experiment
 Open experiment_scripts.py en daarin staat hoe we bij de uitkomsten zijn gekomen van het experiment.
