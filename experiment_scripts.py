@@ -19,6 +19,8 @@ with open(csv_file_path, 'w', newline='') as csvfile:
 # Change for the amount of iterations you want to do
 iterations = 1000
 
+
+# Change solution.calculate_own_costs() to solution.calculate_shared_costs() for shared costs
 """
 Remove quotations for simulated annealing experiment
 
@@ -132,6 +134,7 @@ for i in range(iterations):
 """
 Remove quotations for heuristic hillclimber
 
+for i in range(iterations):
     # Record start time
     start_time = time.time()
 
