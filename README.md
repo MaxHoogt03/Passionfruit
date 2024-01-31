@@ -1,8 +1,10 @@
 ## Passionfruit: Solutions for SmartGrid
 Door: Max Hoogeveen, Stefan Marijnissen en Leo Zinn
 
-## De case:
+## De case
 Deze case draait om het optimaliseren van een Smart Grid voor groene energie in woonwijken. Huizen met zonnepanelen zijn verbonden aan batterijen via kabels, waarbij kostenbesparingen en efficiëntie centraal staan. De opdracht gaat van individuele kabelverbindingen naar gedeelde kabels. De uitdaging omvat het vinden van optimale configuraties van kabels. De output wordt gemaakt aan de hand van een uniform format, waarin de kosten en verbindingen van het Smart Grid worden weergegeven. De case biedt een diepgaande blik op het ontwerpen en optimaliseren van het Smart Grid probleem voor duurzame energieopwekking.
+
+## De aanpak per algoritme
 
 ## HoofdProgramma: main.py
 Om een bepaald algoritme te runnen ga je naar main.py. In main.py kan je de volgende algoritmen runnen: 
