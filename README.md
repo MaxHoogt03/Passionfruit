@@ -5,17 +5,18 @@ Door: Max Hoogeveen, Stefan Marijnissen en Leo Zinn
 Deze case draait om het optimaliseren van een Smart Grid voor groene energie in woonwijken. Huizen met zonnepanelen zijn verbonden aan batterijen via kabels, waarbij kostenbesparingen en efficiëntie centraal staan. De opdracht gaat van individuele kabelverbindingen naar gedeelde kabels. De uitdaging omvat het vinden van optimale configuraties van kabels. De output wordt gemaakt aan de hand van een uniform format, waarin de kosten en verbindingen van het Smart Grid worden weergegeven. De case biedt een diepgaande blik op het ontwerpen en optimaliseren van het Smart Grid probleem voor duurzame energieopwekking.
 
 ## De aanpak per algoritme
-Random:
 - Met Random pakken wij een random huis en random batterij en koppelen we die. Als aan het einde van het algoritme er geen geldige oplossing staat, runt het algoritme opnieuw tot er wel een geldige oplossing aanwezig is.
 
 - Met Random Greedy pakken wij een random huis en verbinden wij deze greedy aan een batterij, waar greedy betekent dat we de dichtbijzijndste batterij pakken. Als deze batterij al een max capaciteit heeft, zoeken we de volgende dichtstbijzijndste batterij etc. Als er aan het einde van de algoritme geen oplossing aanwezig is, runt het algoritme opnieuw tot er een gevonden is.
 
-- 
-Hillclimber: een opgeloste staat van het probleem wordt gebruikt als begin staat. Vervolgens kiest het algoritme random twee verschillende batterijen, en van deze twee verschillende batterijen random twee huizen. De connectie tussen batterij 1 en huis 1 en batterij 2 en huis 2 worden verwisseld. Vervolgens word gekeken of deze wissel zorgt voor minder kosten. Zo ja, dan wordt de district geüpdated door deze verbinding met elkaar te wisselen. 5000 iteraties.
+- Met Greedy kijken we naar kleinste afstand tussen een huis in het grid en een batterij en deze twee koppelen we aan elkaar. Vervolgens word er gekeken naar de volgende kleinste manhatten afstand tussen een huis en een batterij en worden ze gekoppeld. Dit word gedaan voor elk huis in het district. Greedy geeft echter geen valide oplossingen.
 
-Simulated annealing: werkt hetzelfde als hillclimber, maar maakt gebruik van temperatuur en cooling factor om een kans te creëren dat een verslechtering ook wordt geaccepteerd. De eerste 5000 iteraties is de temperatuur 0, waardoor het hetzelfde functioneert als hillclimber. De volgende 5000 iteraties werken met een functie om verslechteringen te accepteren.
 
-Heuristic hill: maakt gebruik van hetzelfde idee als hillclimber, maar selecteert steeds de slechtste verbinding om aan te passen. Als heuristiek wordt gebruikt de lengte kabels in eerste instantie en de lengte van de kabels na het verwisselen. Dit algoritme gebruikt dus geen calculate_own_costs() of calculate_shared_costs() en is daarom sneller. Een queue wordt gebruikt zodat niet steeds hetzelfde huis met elkaar wordt gewisseld.
+- Hillclimber: een opgeloste staat van het probleem wordt gebruikt als begin staat. Vervolgens kiest het algoritme random twee verschillende batterijen, en van deze twee verschillende batterijen random twee huizen. De connectie tussen batterij 1 en huis 1 en batterij 2 en huis 2 worden verwisseld. Vervolgens word gekeken of deze wissel zorgt voor minder kosten. Zo ja, dan wordt de district geüpdated door deze verbinding met elkaar te wisselen. 5000 iteraties.
+
+- Simulated annealing: werkt hetzelfde als hillclimber, maar maakt gebruik van temperatuur en cooling factor om een kans te creëren dat een verslechtering ook wordt geaccepteerd. De eerste 5000 iteraties is de temperatuur 0, waardoor het hetzelfde functioneert als hillclimber. De volgende 5000 iteraties werken met een functie om verslechteringen te accepteren.
+
+- Heuristic hill: maakt gebruik van hetzelfde idee als hillclimber, maar selecteert steeds de slechtste verbinding om aan te passen. Als heuristiek wordt gebruikt de lengte kabels in eerste instantie en de lengte van de kabels na het verwisselen. Dit algoritme gebruikt dus geen calculate_own_costs() of calculate_shared_costs() en is daarom sneller. Een queue wordt gebruikt zodat niet steeds hetzelfde huis met elkaar wordt gewisseld.
 
 ## HoofdProgramma: main.py
 Om een bepaald algoritme te runnen ga je naar main.py. In main.py kan je de volgende algoritmen runnen: 
@@ -51,7 +52,7 @@ Advanced opdracht 5, 6 en een genetisch algoritme staan ook in de algorithms. Vo
 - Random allocatie van de batterijen. 
 - Plaatsing bij het huis met de meeste huizen in een straal. Met een algoritme om te voorkomen dat batterijen op een klutje komen.
 
-Verder zijn deze 2 verder niet geimplementeerd met welk algoritme dan ook.
+Verder zijn deze 2 niet geimplementeerd met welk algoritme dan ook.
 
 Voor opdracht 6 is er een base case waarbij random batterijen worden geselecteerd totdat er genoeg capaciteit is. Deze is dus nog totaal niet geoptimaliseerd. Het genetisch algoritme is ook werkend, maar doordat het vrij lastig is om betere childs te krijgen dan parents in dit probleem werkt het tot nu toe nog niet zoals wij willen.
 
