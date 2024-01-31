@@ -103,7 +103,7 @@ if __name__ == "__main__":
         solution_district.greedy_solution()
 
         if len(choice_list) == 4:
-            hillclimber_1 = hc.Hillclimber(solution_district.district, own_costs = choice_list[3])
+            hillclimber_1 = hc.Hillclimber(solution_district.district, own_costs = not choice_list[3])
         else:
             hillclimber_1 = hc.Hillclimber(solution_district.district, own_costs = False)
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
         solution_district.greedy_solution()
 
         if len(choice_list) == 4:
-            sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = choice_list[3])
+            sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = not choice_list[3])
         else:
             sc_1 = sc.SimulatedAnnealing(solution_district.district, own_costs = False)
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
         solution_district.greedy_solution()
 
         if len(choice_list) == 4:
-            own_costs = choice_list[3]
+            own_costs = not choice_list[3]
             sollution = hh.Heuristic_Hill(solution_district.district, own_costs)
         else:
             sollution = hh.Heuristic_Hill(solution_district.district, own_costs = False)

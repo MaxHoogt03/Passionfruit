@@ -5,7 +5,12 @@ Door: Max Hoogeveen, Stefan Marijnissen en Leo Zinn
 Deze case draait om het optimaliseren van een Smart Grid voor groene energie in woonwijken. Huizen met zonnepanelen zijn verbonden aan batterijen via kabels, waarbij kostenbesparingen en efficiëntie centraal staan. De opdracht gaat van individuele kabelverbindingen naar gedeelde kabels. De uitdaging omvat het vinden van optimale configuraties van kabels. De output wordt gemaakt aan de hand van een uniform format, waarin de kosten en verbindingen van het Smart Grid worden weergegeven. De case biedt een diepgaande blik op het ontwerpen en optimaliseren van het Smart Grid probleem voor duurzame energieopwekking.
 
 ## De aanpak per algoritme
+Random:
+- Met Random pakken wij een random huis en random batterij en koppelen we die. Als aan het einde van het algoritme er geen geldige oplossing staat, runt het algoritme opnieuw tot er wel een geldige oplossing aanwezig is.
 
+- Met Random Greedy pakken wij een random huis en verbinden wij deze greedy aan een batterij, waar greedy betekent dat we de dichtbijzijndste batterij pakken. Als deze batterij al een max capaciteit heeft, zoeken we de volgende dichtstbijzijndste batterij etc. Als er aan het einde van de algoritme geen oplossing aanwezig is, runt het algoritme opnieuw tot er een gevonden is.
+
+- 
 ## HoofdProgramma: main.py
 Om een bepaald algoritme te runnen ga je naar main.py. In main.py kan je de volgende algoritmen runnen: 
 
