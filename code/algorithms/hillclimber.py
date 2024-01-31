@@ -2,9 +2,10 @@ import copy
 import random
 
 class Hillclimber:
-    MAX_ITERATIONS = 100
-
     def __init__(self, district, own_costs = True):
+        """
+        Initializes a hillclimber given a district and whether own_costs or shared_costs should be optimized.
+        """
         self.district = copy.deepcopy(district)
         self.own_costs = own_costs
         if own_costs:
@@ -42,7 +43,11 @@ class Hillclimber:
             for i in range(dist_y + 1):
                 house.add_cable(f"{x_house - dist_x}, {y_house - i}")
 
-    def mutate_random_connection(self, district, iterations = MAX_ITERATIONS):
+    def mutate_random_connection(self, district, iterations = 100):
+        """
+        Chooses 2 random batteries, from those 2 batteries 2 random houses. Switches connection and checks whether costs have been decreases. If so, the current district is saved with the changes made.
+        """
+        
         battery_1, battery_2 = random.sample(district.get_batteries(), 2)
         house_1 = random.choice(battery_1.get_houses())
         house_2 = random.choice(battery_2.get_houses())
@@ -67,6 +72,10 @@ class Hillclimber:
             battery_2.add_house(house_1)
             
     def check_solution(self, new_district):
+        """
+        Checks if solution from new_district is better than the original one.
+        """
+        
         if self.own_costs:
             new_costs = new_district.calculate_own_costs()
 
@@ -80,9 +89,6 @@ class Hillclimber:
             self.costs = new_costs
 
     def run(self, iterations, verbose=False):
-
-        
-
         for i in range(iterations):
             self.iterations += 1
             print(f"Iteration {i+1}/{iterations}, current value: {self.costs}") if verbose else None

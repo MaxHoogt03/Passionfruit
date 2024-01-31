@@ -21,6 +21,10 @@ class Greedy:
         """
 
         def distance_to_battery(house, battery):
+            """
+            Calculates the distance between a given house and battery.
+            """
+
             if house.get_output() > battery.get_capacity():
                 return float('inf')  # Return a large value for invalid distances
             return District.calculate_distance(house, battery)
@@ -51,11 +55,17 @@ class Greedy:
 
 
     def greedy_solution(self):
+        """
+        Gives the greedy solution.
+        """
+
         district_copy = copy.deepcopy(self.district)
         connected_houses = set()
         total_min_distance = 0
 
-        while True:
+        houses_connected = 0
+
+        while houses_connected < 150:
             house, battery, min_distance = self.house_closest_to_battery(district_copy, connected_houses)
             # Variables for location of current house, closest battery, and the distance.
             x_house = house.x
@@ -87,5 +97,6 @@ class Greedy:
 
             # Adds to house to the current battery object.
             battery.add_house(house)
+            houses_connected += 1
 
-        return 
+        return district_copy
