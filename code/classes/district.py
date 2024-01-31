@@ -107,8 +107,12 @@ class District:
             cable_dict = {}
             for house in battery.get_houses():
                 cable_storedval = None 
+
+                # Adds every cable from the houses in the battery as a key value pair
                 for cable in house.get_cables():
                     if cable_storedval in cable_dict:
+
+                        # Counts the duplicates.
                         if cable_dict[cable_storedval] == cable:
                             number_of_duplicates += 1
                     
@@ -121,6 +125,7 @@ class District:
         
         return int(self.calculate_own_costs(battery_costs)) - int(self.shared_costs)
     
+
 
     def calculate_own_costs(self, battery_costs = [5000, 5000, 5000, 5000, 5000]):
         """

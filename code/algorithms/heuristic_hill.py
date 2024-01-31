@@ -1,5 +1,4 @@
 import copy
-
 from ..classes.district import District
 from ..classes.queue import Queue
 
@@ -7,18 +6,17 @@ class Heuristic_Hill:
     """
     A class to perform iterative optimization for connecting houses to batteries in a district.
     """
-    def __init__(self, district, own_costs = True):
+    
+    def __init__(self, district, own_costs=True):
         """
         Initialize the Iterative optimizer.
 
-        pre:
-            - district
-            - own_costs: A boolean flag indicating whether to use own costs (True) or shared costs (False) for calculations.
+        Parameters:
+        - district (object): The district object.
+        - own_costs (bool): A boolean flag indicating whether to use own costs (True) or shared costs (False) for calculations.
 
-        post:
-            - A deep copy of the district
-            - A queue to track the last 130 processed houses
-            - The costs based on the 'own_costs' boolean
+        Side-effects:
+        - Initializes class variables.
         """
         self.district = copy.deepcopy(district)
         self.own_costs = own_costs
@@ -27,9 +25,9 @@ class Heuristic_Hill:
         """
         Identify the house and its connected battery that are furthest apart in the district.
 
-        post:
-            - The furthest house from its battery ('dumb_house') and its connected battery ('dumb_battery')
-            - The identified house is enqueued into 'last_130_houses'
+        Side-effects:
+        - The furthest house from its battery ('dumb_house') and its connected battery ('dumb_battery').
+        - The identified house is enqueued into 'last_130_houses'.
         """
         longest_distance = 0
         self.dumb_battery = None
@@ -44,20 +42,20 @@ class Heuristic_Hill:
         self.last_130_houses.enqueue(self.dumb_house)
         if self.last_130_houses.size() > 130:
             self.last_130_houses.dequeue()
-        # Retrieve the batteries in list sorted on distance to dumb_house
+        # Retrieve the batteries in a list sorted on distance to dumb_house
         self.sorted_batteries = sorted(self.district.get_batteries(), key=lambda battery: District.calculate_distance(self.dumb_house, battery))
 
     def replace_battery(self):
         """
         Attempt to find a closer battery for the identified house and swap connections if it reduces costs and meets capacity constraints.
 
-        post:
-            - If a suitable replacement battery is found, houses are swapped between the old and new batteries
+        Side-effects:
+        - If a suitable replacement battery is found, houses are swapped between the old and new batteries.
         """
         for i in range(len(self.sorted_batteries)):
             self.new_battery = self.sorted_batteries[i]
             if self.new_battery is not None:
-                #print('found new battery')
+                # print('found new battery')
                 for self.new_house in self.new_battery.get_houses():
                     if self.conditions():
                         self.swap_houses()
@@ -67,11 +65,15 @@ class Heuristic_Hill:
         """
         Check if swapping the houses between batteries reduces the total cable length and respects battery capacities.
 
-        post:
-            - Returns True if swapping is beneficial and feasible, False otherwise.
+        Returns:
+        - bool: True if swapping is beneficial and feasible, False otherwise.
         """
-        if District.calculate_distance(self.new_house, self.new_battery) + District.calculate_distance(self.dumb_house, self.dumb_battery) > District.calculate_distance(self.new_house, self.dumb_battery) + District.calculate_distance(self.dumb_house, self.new_battery) and \
-        self.new_battery.get_capacity() + self.new_house.get_output() - self.dumb_house.get_output() > 0 and self.dumb_battery.get_capacity() + self.dumb_house.get_output() - self.new_house.get_output() > 0:
+        if (District.calculate_distance(self.new_house, self.new_battery) + 
+            District.calculate_distance(self.dumb_house, self.dumb_battery) > 
+            District.calculate_distance(self.new_house, self.dumb_battery) + 
+            District.calculate_distance(self.dumb_house, self.new_battery)) and \
+            (self.new_battery.get_capacity() + self.new_house.get_output() - self.dumb_house.get_output() > 0 and 
+            self.dumb_battery.get_capacity() + self.dumb_house.get_output() - self.new_house.get_output() > 0):
             return True
         return False
 
@@ -79,8 +81,8 @@ class Heuristic_Hill:
         """
         Perform the actual swap of houses between the two batteries.
 
-        post:
-            - The houses are swapped between the two batteries, and new cable connections are made.
+        Side-effects:
+        - The houses are swapped between the two batteries, and new cable connections are made.
         """
         self.new_house.delete_cables()
         self.add_greedy_connection(self.new_house, self.dumb_battery)
@@ -96,12 +98,12 @@ class Heuristic_Hill:
         """
         Adds the cables by first clearing the x difference between the house and battery and then y.
 
-        pre:
-            - house object
-            - battery object
+        Parameters:
+        - house (object): House object.
+        - battery (object): Battery object.
 
-        post:
-            - Cables are added between the house and the battery.
+        Side-effects:
+        - Cables are added between the house and the battery.
         """
         dist_x = house.x - battery.x
         dist_y = house.y - battery.y
@@ -124,8 +126,14 @@ class Heuristic_Hill:
                 house.add_cable(f"{house.x - dist_x},{house.y - i}")
 
     def run(self):
+        """
+        Run the heuristic hill climbing algorithm.
+
+        Returns:
+        - object: The optimized district.
+        """
         self.last_130_houses = Queue()
-        for i in range(150):
+        for _ in range(150):
             self.furthest_house()
             self.replace_battery()
         if self.own_costs:

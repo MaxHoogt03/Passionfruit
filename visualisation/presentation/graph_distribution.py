@@ -53,11 +53,12 @@ def make_graphs(filename, text="", x_range=None):
     # Save the figure
     plt.savefig(f'{filename}')
 
-# Example usage with specified x-axis range
+
 make_graphs("shared_graph", "shared")
+make_graphs("shared_graph_zoomedin","shared", x_range=(35000, 37500))
+
+
+make_graphs("own_graph")
 make_graphs("own_graph_zoomedin", x_range=(53000, 58000))
 
-# Example usage without specifying x-axis range (uses default)
-make_graphs("own_graph")
-make_graphs("shared_graph_zoomedin","shared", x_range=(35000, 37500))
 

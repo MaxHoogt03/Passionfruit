@@ -89,6 +89,9 @@ class Hillclimber:
             self.costs = new_costs
 
     def run(self, iterations, verbose=False):
+        """
+        Runs the algoritm.
+        """
         for i in range(iterations):
             self.iterations += 1
             print(f"Iteration {i+1}/{iterations}, current value: {self.costs}") if verbose else None

@@ -4,18 +4,16 @@ import copy
 class Advanced_6:
     def __init__(self, district):
         """
-        initializing the advance_6 class. Changing the batteries of a 
-        District to the assignments set of batteries.
+        Initializes the Advanced_6 class by deep copying the provided district 
+        and removing existing batteries. Sets up battery data and costs.
 
+        
         pre: district (object)
-        post: none
 
-        side-effects: initializing some class variables.
+        Side-effects:
+        - Initializes class variables.
         """
-
         self.district = copy.deepcopy(district)
-
-        # remove the batteries from the district inserted.
         self.district.remove_batteries()
         self.battery_data = {
             'PowerStar': {'capacity': 450, 'price': 900},
@@ -24,21 +22,22 @@ class Advanced_6:
         }
         self.battery_costs = []
 
-
-
     def random_battery_list(self, needed_capacity):
         """
-        Chooses enough random batteries from the battery_data to accommodate for the outputs from all houses in the district.
-        """
+        Chooses enough random batteries from the battery_data to accommodate 
+        for the outputs from all houses in the district.
 
+        
+        pre: needed_capacity (int) 
+        post: dict
+
+        """
         battery_dict = {}
         capacity = 0
-
         i = 0
 
         while capacity < needed_capacity:
             i += 1
-
             random_name = random.choice(list(self.battery_data.keys()))
             random_capacity = self.battery_data[random_name]['capacity']
             random_price = self.battery_data[random_name]['price']
@@ -51,9 +50,14 @@ class Advanced_6:
 
     def add_batteries_to_district(self, battery_dict):
         """
-        Places the given batteries at random places on the district where there are no other houses or batteries
-        """
+        Places the given batteries at random locations on the district where 
+        there are no other houses or batteries.
 
+        
+        pre: battery_dict (dict) 
+
+        side-effects: Adds batteries to district.
+        """
         max_attempts = 100
 
         for battery in battery_dict.values():
@@ -70,8 +74,16 @@ class Advanced_6:
                 # If no house or battery at the coordinates, add the battery and break out of the loop
                 self.district.add_battery(x, y, capacity)
                 break
-            
+
+
     def run(self, needed_capacity):
+        """
+        Runs the algorithm to randomly select and place batteries in the district.
+
+        
+        pre: needed_capacity
+        
+        """
         batteries = self.random_battery_list(needed_capacity)
         self.add_batteries_to_district(batteries)
 
