@@ -29,8 +29,6 @@ class Advanced_6:
     def random_battery_list(self, needed_capacity):
         """
         Chooses enough random batteries from the battery_data to accommodate for the outputs from all houses in the district.
-
-        
         """
 
         battery_dict = {}

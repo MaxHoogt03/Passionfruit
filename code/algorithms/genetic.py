@@ -5,12 +5,22 @@ from .heuristic_hill import Heuristic_Hill
 
 class Genetic:
     def __init__(self, initial_population, crossover_rate, mutation_rate, district):
+        """
+        Initializes genetic class. 
+        """
+
         self.population = initial_population
         self.crossover_rate = crossover_rate
         self.mutation_rate = mutation_rate
         self.district = district
 
     def crossover_genes_uniform(self, parent1, parent2):
+        """
+        Chooses randomly between the 2 parents whether is selects the house/battery connection of parent 1 or parent 2 and saves it.
+
+        Note: creating better childs than parents is quite hard, so this needs further research.
+        """
+
         offspring = copy.deepcopy(self.district)
 
         # Sort houses by coordinates before crossover
@@ -39,6 +49,10 @@ class Genetic:
 
 
     def repair_capacity_constraint(self, offspring):
+        """
+        Makes sure that it is a valid solution again by the battery capacity constraint.
+        """
+
         offspring_copy = copy.deepcopy(offspring)
         iteration = 100
 
@@ -57,6 +71,9 @@ class Genetic:
                     
 
     def mutate_to_repair(self, offspring, negative_capacity, iteration):
+        """
+        Changes 2 connections and checks if negative capacity from all batteries is less. If so, it saves the change.
+        """
         offspring_copy = copy.deepcopy(offspring)
 
         if iteration <= 0:
@@ -95,6 +112,7 @@ class Genetic:
         """
         Adds the cables by first clearing the x difference between the house and battery and then y.
         """
+
         x_house = house.x
         y_house = house.y
         x_battery = battery.x
@@ -120,12 +138,20 @@ class Genetic:
                 house.add_cable(f"{x_house - dist_x}, {y_house - i}")
 
     def mutate(self, solution):
+        """
+        Mutates the child. Right now it uses another algorithm, but this is not yet finished.
+        """
+
         mutation = Heuristic_Hill(solution)
         return mutation.district
 
     def generate_next_generation(self):
+        """
+        Generates a next generation given a initial population of solved cases. This also still needs work to get better results.
+        """
+        
         # Select the top parents to keep in the next generation
-        num_best_parents = int(len(self.population) * 0.8)  # Adjust the percentage as needed
+        num_best_parents = int(len(self.population) * 0.8)
         best_parents = sorted(self.population, key=self.evaluate_fitness)[:num_best_parents]
 
         # Generate children through crossover and mutation
@@ -172,6 +198,9 @@ class Genetic:
         return best_solution
 
     def evaluate_fitness(self, solution):
+        """
+        The function to evaluate the fitness of the childs.
+        """
         # Implement your fitness evaluation logic
         # This could involve calculating the total cost or other relevant metrics
         return solution.calculate_own_costs()

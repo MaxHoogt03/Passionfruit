@@ -30,8 +30,11 @@ class Random_to_Random:
                 house.add_cable(f"{house.x - dist_x}, {house.y - i}")
 
     def find_valid_battery(self, house, battery):
+        """
+        Tries to find a battery which is valid for the given house.
+        """
+        
         for battery in self.district_copy.batteries:
-            
             if battery.get_capacity() >= house.get_output():
                 distance = District.calculate_distance(house, battery)
                 return battery, distance

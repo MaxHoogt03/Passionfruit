@@ -6,21 +6,31 @@ from .hillclimber import Hillclimber
 class SimulatedAnnealing(Hillclimber):
 
     def __init__(self, district, temperature = 50, own_costs = True):
+        """
+        This init uses Hillclimber algorithm.
+        """
+        
         super().__init__(district, own_costs)
 
         self.T0 = temperature
         self.T = temperature
 
     def update_temperature(self):
+        """
+        Temperature function for accepting worsening changes.
+        """
+        
         if self.iterations < 5000:
             self.T = 0
         else:
-            cooling_factor = 0.999  # You can adjust this value
+            cooling_factor = 0.999
             self.T = 30 * cooling_factor**(self.iterations - 5000)
 
-
-
     def check_solution(self, new_district):
+        """
+        Checks if the new_solution is better than the old one, or worse but still accepted by chance.
+        """
+        
         if self.own_costs:
             new_costs = new_district.calculate_own_costs()
         else:
