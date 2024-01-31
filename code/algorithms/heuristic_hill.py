@@ -109,19 +109,19 @@ class Heuristic_Hill:
         # Adds the cables to the houses, by first walking over the x difference and then the y difference.
         if dist_x <= 0:
             for i in range(abs(dist_x)):
-                house.add_cable(f"{house.x + i}, {house.y}")
+                house.add_cable(f"{house.x + i},{house.y}")
 
         elif dist_x >= 0:
             for i in range(dist_x):
-                house.add_cable(f"{house.x - i}, {house.y}")
+                house.add_cable(f"{house.x - i},{house.y}")
 
         if dist_y <= 0:
             for i in range(abs(dist_y) + 1):
-                house.add_cable(f"{house.x - dist_x}, {house.y + i}")
+                house.add_cable(f"{house.x - dist_x},{house.y + i}")
 
         elif dist_y >= 0:
             for i in range(dist_y + 1):
-                house.add_cable(f"{house.x - dist_x}, {house.y - i}")
+                house.add_cable(f"{house.x - dist_x},{house.y - i}")
 
     def run(self):
         self.last_130_houses = Queue()
