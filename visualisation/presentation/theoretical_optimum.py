@@ -1,7 +1,6 @@
 from code.classes import district
 import matplotlib.pyplot as plt
 import json
-from code.algorithms import more_random as mr, random_to_greedy as rtg, greedy as gr, hillclimber as hc, simulatedannealing as sc, battery_relocation as br, heuristic_hill as hh
 
 district_1 = district.District(1, "data/district_1/district-1_")
 
