@@ -1,4 +1,4 @@
-# Passionfruits Sollutions for Smartgrid
+# Passionfruit: Solutions for SmartGrid
 Door: Max Hoogeveen, Stefan Marijnissen en Leo Zinn
 ## HoofdProgramma: main.py
 Om een bepaald algoritme te runnen ga je naar main.py. In main.py kan je de volgende algoritmen runnen: 
@@ -22,3 +22,5 @@ Bij het runnen van main.py gebeurd er het volgende:
 4. Afhankelijk wat je bij 3 hebt gekozen kan je eventueel ook nog geprompt worden of je de shared costs of own costs wil zien. Own costs zijn de kosten waarbij je ervanuit gaat dat elke huis zijn eigen kabels heeft naar de batterij en Shared costs haalt dubbel getelde kabels die naar dezelfde batterij gaan van de kosten af omdat deze al "shared" zijn dus aangesloten.  
 ## Experiment
 Open experiment_scripts.py en daarin staat hoe we bij de uitkomsten zijn gekomen van het experiment.
+## Opmerkingen
+Advanced opdracht 5, 6 en een genetisch algoritme staan ook in de algorithms. Voor opdracht 6 is er een base case waarbij random batterijen worden geselecteerd totdat er genoeg capaciteit heeft. Deze is dus nog totaal niet geoptimaliseerd. Het genetisch algoritme is ook werkend, maar doordat het vrij lastig is om betere childs te krijgen dan parents in dit probleem werkt het tot nu toe nog niet zoals wij willen.
