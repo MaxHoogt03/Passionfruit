@@ -3,7 +3,19 @@ import copy
 
 class Advanced_6:
     def __init__(self, district):
+        """
+        initializing the advance_6 class. Changing the batteries of a 
+        District to the assignments set of batteries.
+
+        pre: district (object)
+        post: none
+
+        side-effects: initializing some class variables.
+        """
+
         self.district = copy.deepcopy(district)
+
+        # remove the batteries from the district inserted.
         self.district.remove_batteries()
         self.battery_data = {
             'PowerStar': {'capacity': 450, 'price': 900},
@@ -12,9 +24,13 @@ class Advanced_6:
         }
         self.battery_costs = []
 
+
+
     def random_battery_list(self, needed_capacity):
         """
-        Chooses enough random batteries from the battery_data to accommodate for the outputs from all houses in the district
+        Chooses enough random batteries from the battery_data to accommodate for the outputs from all houses in the district.
+
+        
         """
 
         battery_dict = {}

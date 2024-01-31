@@ -1,0 +1,6 @@
+Fix comments and docstrings for all .py files 
+
+Leg in readme Uit dat we advanced 5 en 6 hebben geprobeerd/gedaan,
+benoem de files, leg uit hoe je ze runt. Etc. maar niet gebruikt bij de al-
+goritmes.
+
