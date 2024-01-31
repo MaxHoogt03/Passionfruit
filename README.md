@@ -6,6 +6,12 @@ Deze case draait om het optimaliseren van een Smart Grid voor groene energie in 
 
 ## De aanpak per algoritme
 
+Hillclimber: een opgeloste staat van het probleem wordt gebruikt als begin staat. Vervolgens kiest het algoritme random twee verschillende batterijen, en van deze twee verschillende batterijen random twee huizen. De connectie tussen batterij 1 en huis 1 en batterij 2 en huis 2 worden verwisseld. Vervolgens word gekeken of deze wissel zorgt voor minder kosten. Zo ja, dan wordt de district geüpdated door deze verbinding met elkaar te wisselen. 5000 iteraties.
+
+Simulated annealing: werkt hetzelfde als hillclimber, maar maakt gebruik van temperatuur en cooling factor om een kans te creëren dat een verslechtering ook wordt geaccepteerd. De eerste 5000 iteraties is de temperatuur 0, waardoor het hetzelfde functioneert als hillclimber. De volgende 5000 iteraties werken met een functie om verslechteringen te accepteren.
+
+Heuristic hill: maakt gebruik van hetzelfde idee als hillclimber, maar selecteert steeds de slechtste verbinding om aan te passen. Als heuristiek wordt gebruikt de lengte kabels in eerste instantie en de lengte van de kabels na het verwisselen. Dit algoritme gebruikt dus geen calculate_own_costs() of calculate_shared_costs() en is daarom sneller. Een queue wordt gebruikt zodat niet steeds hetzelfde huis met elkaar wordt gewisseld.
+
 ## HoofdProgramma: main.py
 Om een bepaald algoritme te runnen ga je naar main.py. In main.py kan je de volgende algoritmen runnen: 
 
