@@ -59,4 +59,3 @@ make_graphs("own_graph_zoomedin", x_range=(53000, 58000))
 make_graphs("own_graph")
 make_graphs("shared_graph_zoomedin","shared", x_range=(35000, 37500))
 
-53188
