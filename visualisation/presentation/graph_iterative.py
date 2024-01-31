@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import ultraimport
+theoretical_optimum = ultraimport('__dir__/theoretical_optimum.py', 'theoretical_optimum', recurse = True)
 
 def make_graphs(filename, text="", x_range=None):
     # File paths for the CSV files
@@ -33,8 +35,8 @@ def make_graphs(filename, text="", x_range=None):
 
     # Plot each dataset
     for (name, dataframe), color in zip(datasets.items(), colors):
-        sns.kdeplot(dataframe['solution'], shade=True, label=name, color=color)
-    plt.axvline(x=53188, color='black', linestyle='--', linewidth=2, label='Theoretical optimum at 53188')
+        sns.kdeplot(dataframe['solution'], fill=True, label=name, color=color)
+    plt.axvline(x=theoretical_optimum(), color='black', linestyle='--', linewidth=2, label=f'Theoretical optimum at {theoretical_optimum()}')
     # Title and labels
     plt.title(f'Smoothed Histograms of {text} Costs')
     plt.xlabel('Costs')
