@@ -1,6 +1,7 @@
 # NOTE: This file was automatically generated from:
 # /mnt/c/Users/Max/Downloads/Passionfruit/code/classes/battery.py
 # DO NOT CHANGE DIRECTLY! 1706728084.2877662
+
 class Battery:
 
     def __init__(self, x, y, capacity):
