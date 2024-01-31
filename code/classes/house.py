@@ -1,5 +1,3 @@
-import csv
-
 class House:
     def __init__(self, x, y, maxoutput) -> None:
         self.x = int(x)

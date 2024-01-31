@@ -1,5 +1,3 @@
-import csv
-
 class Battery:
     def __init__(self, x, y, capacity):
         self.x = int(x)
