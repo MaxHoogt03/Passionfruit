@@ -1,6 +1,6 @@
 # NOTE: This file was automatically generated from:
-# /mnt/c/Users/Max/Downloads/Passionfruit/code/classes/district.py
-# DO NOT CHANGE DIRECTLY! 1706728084.1967525
+# /mnt/c/Users/stefa/Documents/algo&heur/Passionfruit/code/classes/district.py
+# DO NOT CHANGE DIRECTLY! 1706806869.3160703
 import json
 import csv
 import matplotlib.pyplot as plt
@@ -11,14 +11,14 @@ except ultraimport.ResolveImportError as e:
     try:
         (House,) = ultraimport('__dir__/house.py', objects_to_import=('House',), recurse=True)
     except ultraimport.ResolveImportError as e2:
-        raise ultraimport.RewrittenImportError(code_info=('from .house import House', '/mnt/c/Users/Max/Downloads/Passionfruit/code/classes/district.py', 5, 0), object_to_import='House', combine=[e, e2]) from None
+        raise ultraimport.RewrittenImportError(code_info=('from .house import House', '/mnt/c/Users/stefa/Documents/algo&heur/Passionfruit/code/classes/district.py', 5, 0), object_to_import='House', combine=[e, e2]) from None
 try:
     (Battery,) = ultraimport('__dir__/battery/__init__.py', objects_to_import=('Battery',), recurse=True)
 except ultraimport.ResolveImportError as e:
     try:
         (Battery,) = ultraimport('__dir__/battery.py', objects_to_import=('Battery',), recurse=True)
     except ultraimport.ResolveImportError as e2:
-        raise ultraimport.RewrittenImportError(code_info=('from .battery import Battery', '/mnt/c/Users/Max/Downloads/Passionfruit/code/classes/district.py', 6, 0), object_to_import='Battery', combine=[e, e2]) from None
+        raise ultraimport.RewrittenImportError(code_info=('from .battery import Battery', '/mnt/c/Users/stefa/Documents/algo&heur/Passionfruit/code/classes/district.py', 6, 0), object_to_import='Battery', combine=[e, e2]) from None
 
 class District:
 
@@ -249,7 +249,7 @@ class District:
         """
         data = [{'district': self._value, 'costs-own': self.calculate_own_costs(), 'costs-shared': self.calculate_shared_costs()}]
         for battery in self.batteries:
-            battery_info = {'location': battery.get_location(), 'capacity': battery.get_capacity(), 'houses': []}
+            battery_info = {'location': battery.get_location(), 'capacity': battery.capacity_output(), 'houses': []}
             for house in battery.get_houses():
                 house_info = {'location': house.get_location(), 'output': house.get_output(), 'cables': house.get_cables()}
                 battery_info['houses'].append(house_info)
@@ -284,15 +284,15 @@ class District:
                     dist_y = y_house - y_target_house
                     if dist_x <= 0:
                         for i in range(abs(dist_x)):
-                            house.add_cable(f'{x_house + i}, {y_house}')
+                            house.add_cable(f'{x_house + i},{y_house}')
                     elif dist_x >= 0:
                         for i in range(dist_x):
-                            house.add_cable(f'{x_house - i}, {y_house}')
+                            house.add_cable(f'{x_house - i},{y_house}')
                     if dist_y <= 0:
                         for i in range(abs(dist_y) + 1):
-                            house.add_cable(f'{x_house - dist_x}, {y_house + i}')
+                            house.add_cable(f'{x_house - dist_x},{y_house + i}')
                     elif dist_y >= 0:
                         for i in range(dist_y + 1):
-                            house.add_cable(f'{x_house - dist_x}, {y_house - i}')
+                            house.add_cable(f'{x_house - dist_x},{y_house - i}')
                 else:
                     continue

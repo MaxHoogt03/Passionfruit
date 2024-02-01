@@ -1,14 +1,24 @@
 # NOTE: This file was automatically generated from:
-# /mnt/c/Users/Max/Downloads/Passionfruit/code/classes/battery.py
-# DO NOT CHANGE DIRECTLY! 1706728084.2877662
-
+# /mnt/c/Users/stefa/Documents/algo&heur/Passionfruit/code/classes/battery.py
+# DO NOT CHANGE DIRECTLY! 1706806869.4306219
 class Battery:
 
     def __init__(self, x, y, capacity):
         self.x = int(x)
         self.y = int(y)
+        self.total_capacity = float(capacity)
         self.capacity = float(capacity)
         self.houses = []
+
+    def capacity_output(self):
+        """
+        returns the total capacity of the battery.
+
+        pre: none
+        post: float
+        
+        """
+        return self.total_capacity
 
     def get_location(self):
         """

@@ -4,7 +4,7 @@ import seaborn as sns
 import ultraimport
 theoretical_optimum = ultraimport('__dir__/theoretical_optimum.py', 'theoretical_optimum', recurse = True)
 
-def make_graphs(filename, text="", x_range=None):
+def make_graphs(filename, text="", theoretopt = 0 ,x_range=None,):
     # File paths for the CSV files
     if text != "":
         text = text + "_"
@@ -36,7 +36,9 @@ def make_graphs(filename, text="", x_range=None):
     # Plot each dataset
     for (name, dataframe), color in zip(datasets.items(), colors):
         sns.kdeplot(dataframe['solution'], fill=True, label=name, color=color)
-    plt.axvline(x=theoretical_optimum(), color='black', linestyle='--', linewidth=2, label=f'Theoretical optimum at {theoretical_optimum()}')
+    
+    if theoretopt == 1:
+        plt.axvline(x=theoretical_optimum(), color='black', linestyle='--', linewidth=2, label=f'Theoretical optimum at {theoretical_optimum()}')
     # Title and labels
     plt.title(f'Smoothed Histograms of {text} Costs')
     plt.xlabel('Costs')
@@ -58,7 +60,7 @@ make_graphs("shared_graph", "shared")
 make_graphs("shared_graph_zoomedin","shared", x_range=(35000, 37500))
 
 
-make_graphs("own_graph")
-make_graphs("own_graph_zoomedin", x_range=(53000, 58000))
+make_graphs("own_graph", theoretopt= 1)
+make_graphs("own_graph_zoomedin", x_range=(53000, 58000), theoretopt = 1)
 
 
